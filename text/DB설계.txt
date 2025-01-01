@@ -46,7 +46,7 @@ CREATE TABLE WHYNOT_COMMENT(
 CREATE TABLE WHYNOT_SUBSCRIPTIONS(
     subscription_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY,
     subscriber_name VARCHAR2(100) NOT NULL,
-    subscriber_id NUMBER UNIQUE NOT NULL, -- 구독자 ID (WHYNOT_CREATOR.creator_id와 참조)
+    subscriber_id NUMBER NOT NULL, -- 구독자 ID (WHYNOT_CREATOR.creator_id와 참조)
     subscribing_name VARCHAR2(100) NOT NULL,
     subscribing_id NUMBER NOT NULL,   -- 크리에이터 ID (WHYNOT_CREATOR.creator_id와 참조)
     subscribed_at VARCHAR2(50) NOT NULL -- 구독 시작 날짜
