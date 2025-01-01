@@ -5,10 +5,10 @@ CREATE TABLE WHYNOT_CREATOR(
     creator_email VARCHAR2(255) NOT NULL,
     creator_password VARCHAR2(255) NOT NULL,
     create_at VARCHAR2(50) NOT NULL,
-    bio CLOB DEFAULT '',
+    bio VARCHAR2(2000) DEFAULT '',
     tel VARCHAR2(15) NOT NULL,
-    profile_img VARCHAR2(100),
-    profile_img_path CLOB,
+    profile_img VARCHAR2(200),
+    profile_img_path VARCHAR2(200),
     subscribe NUMBER DEFAULT 0
 );
 -- 영상
@@ -17,53 +17,37 @@ CREATE TABLE WHYNOT_VIDEOS(
     creator VARCHAR2(100) NOT NULL, -- 크리에이터의 이름
     creator_val NUMBER NOT NULL, -- 크리에이터의 pk값
     title VARCHAR2(255 CHAR) NOT NULL,
-    more CLOB,
-    datetime VARCHAR2(50) NOT NULL,
+    more VARCHAR2(2000),
+    video_name VARCHAR2(100) NOT NULL,
+    video_path VARCHAR2(200) NOT NULL,
+    img_name VARCHAR2(200) NOT NULL, -- 파일 이름
+    img_path VARCHAR2(200) NOT NULL, -- 파일 경로
+    create_at VARCHAR2(50) NOT NULL,
+    front_profile_img VARCHAR2(2000) NOT NULL,
+    v VARCHAR2(200 CHAR) UNIQUE NOT NULL,
     views NUMBER DEFAULT 0,
     likes NUMBER DEFAULT 0,
     unlikes NUMBER DEFAULT 0,
-    comment_count NUMBER DEFAULT 0 
-);
--- 영상의 썸네일
-CREATE TABLE WHYNOT_V_IMG(
-    img_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY,
-    video_num NUMBER NOT NULL, -- videos 테이블의 pk값
-    filename VARCHAR2(150) NOT NULL, -- 파일 이름
-    filepath VARCHAR2(150 CHAR) NOT NULL, -- 파일 경로
-    create_at VARCHAR2(50) NOT NULL
+    comment_count NUMBER DEFAULT 0,
+    tag VARCHAR2(100)
 );
 -- 영상의 댓글
 CREATE TABLE WHYNOT_COMMENT(
     comment_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY,
     comment_video NUMBER NOT NULL, -- 댓들을 단 영상의 pk
     commenter VARCHAR2(100) NOT NULL, -- 댓글을 단 사용자의 이름
-    comment_userid NUMBER NOT NULL, -- 댓글을 단 사용자의 pk
-    comment_content VARCHAR2(900 CHAR) NOT NULL,
+    commenter_userid NUMBER NOT NULL, -- 댓글을 단 사용자의 pk
+    commenter_profile VARCHAR2(200) NOT NULL,
+    commenter_profilepath VARCHAR2(200) NOT NULL,
+    comment_content VARCHAR2(2000) NOT NULL,
     datetime VARCHAR2(50) NOT NULL
 );
 -- 구독 관리 테이블
 CREATE TABLE WHYNOT_SUBSCRIPTIONS(
     subscription_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY,
-    subscriber_id NUMBER NOT NULL, -- 구독자 ID (WHYNOT_CREATOR.creator_id와 참조)
-    creator_id NUMBER NOT NULL,   -- 크리에이터 ID (WHYNOT_CREATOR.creator_id와 참조)
+    subscriber_name VARCHAR2(100) NOT NULL,
+    subscriber_id NUMBER UNIQUE NOT NULL, -- 구독자 ID (WHYNOT_CREATOR.creator_id와 참조)
+    subscribing_name VARCHAR2(100) NOT NULL,
+    subscribing_id NUMBER NOT NULL,   -- 크리에이터 ID (WHYNOT_CREATOR.creator_id와 참조)
     subscribed_at VARCHAR2(50) NOT NULL -- 구독 시작 날짜
-    /* CONSTRAINT fk_subscriber FOREIGN KEY (subscriber_id) REFERENCES WHYNOT_CREATOR (creator_id) ON DELETE CASCADE,
-    CONSTRAINT fk_creator FOREIGN KEY (creator_id) REFERENCES WHYNOT_CREATOR (creator_id) ON DELETE CASCADE,
-    CONSTRAINT unique_subscription UNIQUE (subscriber_id, creator_id) -- 중복 구독 방지 */
-);
-
-SELECT * FROM WHYNOT_CREATOR;
-SELECT * FROM WHYNOT_VIDEOS;
-SELECT * FROM WHYNOT_V_IMG;
-SELECT * FROM WHYNOT_COMMENT;
-SELECT * FROM WHYNOT_SUBSCRIPTIONS;
-
---DROP TABLE WHYNOT_CREATOR;
---DROP TABLE WHYNOT_VIDEOS;
---DROP TABLE WHYNOT_V_IMG;
---DROP TABLE WHYNOT_COMMENT;
---DROP TABLE WHYNOT_SUBSCRIPTIONS;
-
-desc whynot_creator;
-
-COMMIT;
+); 
