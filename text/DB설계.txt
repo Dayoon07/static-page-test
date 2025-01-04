@@ -17,7 +17,7 @@ CREATE TABLE WHYNOT_VIDEOS(
     creator VARCHAR2(100) NOT NULL, -- 크리에이터의 이름
     creator_val NUMBER NOT NULL, -- 크리에이터의 pk값
     title VARCHAR2(255 CHAR) NOT NULL,
-    more VARCHAR2(2000),
+    more CLOB,
     video_name VARCHAR2(100) NOT NULL,
     video_path VARCHAR2(200) NOT NULL,
     img_name VARCHAR2(200) NOT NULL, -- 파일 이름
@@ -30,6 +30,15 @@ CREATE TABLE WHYNOT_VIDEOS(
     unlikes NUMBER DEFAULT 0,
     comment_count NUMBER DEFAULT 0,
     tag VARCHAR2(100)
+);
+-- 영상의 좋아요
+CREATE TABLE WHYNOT_LIKE(
+    like_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY,
+    like_vdo_id NUMBER NOT NULL,
+    like_vdo_name VARCHAR2(100) NOT NULL,
+    liker_id NUMBER NOT NULL,
+    liker_name VARCHAR2(100) NOT NULL,
+    datetime VARCHAR2(50) NOT NULL
 );
 -- 영상의 댓글
 CREATE TABLE WHYNOT_COMMENT(
@@ -46,8 +55,8 @@ CREATE TABLE WHYNOT_COMMENT(
 CREATE TABLE WHYNOT_SUBSCRIPTIONS(
     subscription_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY,
     subscriber_name VARCHAR2(100) NOT NULL,
-    subscriber_id NUMBER NOT NULL, -- 구독자 ID (WHYNOT_CREATOR.creator_id와 참조)
+    subscriber_id NUMBER NOT NULL,
     subscribing_name VARCHAR2(100) NOT NULL,
-    subscribing_id NUMBER NOT NULL,   -- 크리에이터 ID (WHYNOT_CREATOR.creator_id와 참조)
+    subscribing_id NUMBER NOT NULL,
     subscribed_at VARCHAR2(50) NOT NULL -- 구독 시작 날짜
-); 
+);
