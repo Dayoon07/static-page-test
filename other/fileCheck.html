@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div>
+        <label for="profile" class="block text-gray-700 font-semibold mb-1">프로필 사진</label>
+        <input type="file" id="profile" name="profile" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black cursor-pointer" />
+    </div>
+
+    <script>
+        const profile = document.getElementById("profile");
+		const list = ["jpeg", "png", "jpg", "tiff", "webp"];
+
+		profile.addEventListener("input", e => {
+            for (var i = 0; i < list.length; i++) {
+                if (!profile.value.includes(list[i])) {
+                    console.log(list[i]);
+                    console.log([...list]);
+                    e.preventDefault();
+                    alert("이미지 파일 외에는 업로드 할 수 없습니다.");
+                    profile.value = "";
+                    break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
