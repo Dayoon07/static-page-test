@@ -9,25 +9,31 @@
 
     <div>
         <label for="profile" class="block text-gray-700 font-semibold mb-1">프로필 사진</label>
-        <input type="file" id="profile" name="profile" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black cursor-pointer" />
+        <input type="file" id="profile" name="profile" required onchange="imgChk(event)
+		class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black cursor-pointer" />
     </div>
 
     <script>
-        const profile = document.getElementById("profile");
-		const list = [".jpeg", ".png", ".jpg", ".tiff", ".webp"];
-
-		profile.addEventListener("input", e => {
-            for (var i = 0; i < list.length; i++) {
-                if (!profile.value.includes(list[i])) {
-                    console.log(list[i]);
-                    console.log([...list]);
-                    e.preventDefault();
-                    alert("이미지 파일 외에는 업로드 할 수 없습니다.");
-                    profile.value = "";
-                    break;
-                }
-            }
-        });
+	function imgChk(event) {
+	    const file = event.target.files[0];
+	    const AllowedList = [".jpeg", ".jpg", ".png", ".tiff", ".webp"];
+	    const maxSize = 5 * 1024 * 1024; // 5MB
+	
+	    if (file) {
+	        if (file.size > maxSize) {
+	            alert("이미지 업로드 최대는 5MB 입니다.");
+	            event.target.value = "";
+	            return;
+	        }
+	
+	        const fileExtension = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+	        if (!AllowedList.includes(fileExtension)) {
+	            alert("허용되지 않은 이미지 형식입니다. (jpeg, jpg, png, tiff, webp만 가능)");
+	            event.target.value = "";
+	            return;
+	        }
+	    }
+	}
     </script>
 </body>
 </html>
