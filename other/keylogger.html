@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>키로거</title>
+</head>
+<body>
+    <h1>키보드 중 아무 키를 눌러보세요</h1>
+    <script>
+        document.addEventListener("keydown", (e) => {
+            if (e.key.charAt(0) === "F" || e.key === "Enter" || (e.ctrlKey && e.key === "r") || e.key == "Tab") {
+                e.preventDefault();
+            }
+
+            if (e.key === "Backspace" || (e.altKey && e.key === "ArrowLeft")) {
+                e.preventDefault();
+            }
+
+            const body = document.querySelector("body");
+            const h = document.createElement("h1");
+            h.innerHTML = e.key;
+            body.append(h);
+
+            h.scrollIntoView({block : "end"});
+        });
+    </script>
+</body>
+</html>
