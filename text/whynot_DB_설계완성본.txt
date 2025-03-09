@@ -1,0 +1,70 @@
+-- 크리에이터
+CREATE TABLE WHYNOT_CREATOR(
+    creator_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY,
+    creator_name VARCHAR2(100) NOT NULL,
+    creator_email VARCHAR2(255) NOT NULL,
+    creator_password VARCHAR2(255) NOT NULL,
+    create_at VARCHAR2(50) NOT NULL,
+    bio CLOB DEFAULT '',
+    tel VARCHAR2(15) NOT NULL,
+    profile_img VARCHAR2(200),
+    profile_img_path VARCHAR2(200),
+    subscribe NUMBER DEFAULT 0
+);
+-- 영상
+CREATE TABLE WHYNOT_VIDEOS(
+    video_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY,
+    creator VARCHAR2(100) NOT NULL, -- 크리에이터의 이름
+    creator_val NUMBER NOT NULL, -- 크리에이터의 pk값
+    title VARCHAR2(255 CHAR) NOT NULL,
+    more CLOB,  -- 부설명
+    video_name VARCHAR2(100) NOT NULL,  -- 비디오 파일 origin 이름
+    video_path VARCHAR2(200) NOT NULL,  -- 비디오를 저장하는 물리적인 경로
+    video_len VARCHAR2(100) NOT NULL,
+    img_name VARCHAR2(200) NOT NULL, -- 섬네일 파일 origin 이름
+    img_path VARCHAR2(200) NOT NULL, -- 섬네일 파일을 저장하는 물리적인 경로
+    create_at VARCHAR2(50) NOT NULL,    -- 영상을 올린 날짜
+    front_profile_img VARCHAR2(2000) NOT NULL,  -- 영상을 올린 사람의 프로필 이미지 경로
+    video_url VARCHAR2(200 CHAR) UNIQUE NOT NULL,   -- UUID
+    views NUMBER DEFAULT 0,
+    likes NUMBER DEFAULT 0,
+    comment_cnt NUMBER DEFAULT 0,
+    tag VARCHAR2(100)
+);
+-- 영상의 좋아요
+CREATE TABLE WHYNOT_LIKE(
+    like_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY,   -- 고유 번호
+    like_vdo_id NUMBER NOT NULL,    -- 영상의 고유 번호
+    like_vdo_name VARCHAR2(100) NOT NULL,   -- 영상을 올린 사람의 이름
+    liker_id NUMBER NOT NULL,   -- 좋아요를 누른 사람의 고유 번호
+    liker_name VARCHAR2(100) NOT NULL,  -- 좋아요를 누른 사람의 이름
+    datetime VARCHAR2(50) NOT NULL  -- 좋아요를 누른 날짜
+);
+-- 영상의 댓글
+CREATE TABLE WHYNOT_COMMENT(
+    comment_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY,
+    comment_video NUMBER NOT NULL, -- 댓들을 단 영상의 pk
+    comment_userid NUMBER NOT NULL,
+    commenter VARCHAR2(100) NOT NULL, -- 댓글을 단 사용자의 이름
+    commenter_userid NUMBER NOT NULL, -- 댓글을 단 사용자의 pk
+    commenter_profile VARCHAR2(200) NOT NULL,
+    commenter_profilepath VARCHAR2(200) NOT NULL,
+    comment_content CLOB NOT NULL,
+    datetime VARCHAR2(50) NOT NULL
+);
+-- 구독 관리 테이블
+CREATE TABLE WHYNOT_SUBSCRIPTIONS(
+    subscription_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY,
+    subscriber_name VARCHAR2(100) NOT NULL,
+    subscriber_id NUMBER NOT NULL,  -- 구독을 받은 채널의 pk
+    subscribing_name VARCHAR2(100) NOT NULL,
+    subscribing_id NUMBER NOT NULL, -- 구독을 한 채널의 pk
+    subscribed_at VARCHAR2(50) NOT NULL -- 구독 시작 날짜
+);
+-- 시청 기록 테이블
+CREATE TABLE WHYNOT_VIEWSTORY(
+    view_story_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY,
+    watched_video_id NUMBER NOT NULL,   -- 시청한 영상의 pk
+    view_user_id NUMBER NOT NULL,   -- 영상을 시청한 유저의 pk
+    datetime VARCHAR2(50) NOT NULL  -- 시청한 날짜
+);
