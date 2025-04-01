@@ -8,5 +8,5 @@ function info() {
     const wh = window.innerHeight;
     const $div = document.createElement("div");
     $div.innerHTML = `너비 : ${ww}, 높이 : ${wh}`;
-    document.querySelector("body").appendChild($div);
+    document.getElementById("bg").appendChild($div);
 }
