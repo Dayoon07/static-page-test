@@ -1,0 +1,210 @@
+package apapa;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
+public class Aasdasdasd {
+
+    private static final ArrayList<ArrayList<Integer>> graph = new ArrayList<ArrayList<Integer>>();
+    static boolean[] visited;
+    
+    public Aasdasdasd(boolean[] visited) {
+        Aasdasdasd.visited = visited;
+    }
+
+    private static void addEdge(int u, int v) {
+        graph.get(u).add(v);
+        graph.get(v).add(u);
+    }
+
+    /**
+     * @param start
+     * 
+     * 대충 파라미터값 있기는 한데 
+     * 그냥 시간, 공간 복잡도 생각하고 
+     * DFS 쓸지 BFS 쓸지 고민해야 될 듯...
+     */
+    private static void DFS(int start) {
+        visited[start] = true;
+        System.out.print(start + " ");
+
+        for (int c : graph.get(start)) {
+            if (!visited[c]) {
+                DFS(c);
+            }
+        }
+    }
+
+    /**
+     * @param start
+     * 
+     * 대충 파라미터값 있기는 한데 
+     * 그냥 시간, 공간 복잡도 생각하고 
+     * DFS 쓸지 BFS 쓸지 고민해야 될 듯...
+     */
+    private static void BFS(int start) {
+        Queue<Integer> q = new LinkedList<Integer>();
+        q.offer(start);
+        visited[start] = true;
+
+        while (!q.isEmpty()) {
+            int p = q.poll();
+            System.out.print(p + " ");
+        
+            for (int i : graph.get(p)) {
+                if (!visited[i]) {
+                    visited[i] = true;
+                    q.offer(i);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param s
+     * @return
+     * 
+     * 괄호 문법 검사인데 stack
+     */
+    private static boolean chked(String s) {
+        Stack<Character> stk = new Stack<>();
+
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '{' || c == '[') {
+                stk.push(c);
+            }
+
+            if (c == ')' || c == '}' || c == ']') {
+                if (stk.isEmpty()) {
+                    return false;
+                }
+
+                char t = stk.pop();
+
+                if (
+                    (c == ')' && t != '(') ||
+                    (c == '}' && t != '{') ||
+                    (c == ']' && t != '[')
+                ) {
+                    return false;
+                }
+            }
+        }
+
+        return stk.isEmpty();
+    }
+
+    /**
+     * @param a
+     * @param b
+     * 
+     * 정렬인데 버블임 ㅅㄱ
+     */
+    private static void swapu(int[] a, int[] b) {
+        if (a.length != b.length) return;
+    
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] < b[i]) {
+                int t = a[i];
+                a[i] = b[i];
+                b[i] = t;
+            }
+        }
+    }
+
+    static class Node {
+        int data;
+        Node left;
+        Node right;
+
+        public Node(int data) {
+            this.data = data;
+        }
+
+        static void preorder(Node node) {
+            if (node == null) return;
+            System.out.print(node.data + " ");
+            preorder(node.left);
+            preorder(node.right);
+        }
+    
+        static void inorder(Node node) {
+            if (node == null) return;
+            inorder(node.left);
+            System.out.print(node.data + " ");
+            inorder(node.right);
+        }
+    
+        static void postorder(Node node) {
+            if (node == null) return;
+            postorder(node.left);
+            postorder(node.right);
+            System.out.print(node.data + " ");
+        }
+    }
+
+    public static void main(String[] args) {
+        int n = 5;
+        visited = new boolean[n + 1];
+
+        for (int i = 0; i <= n; i++) {
+            graph.add(new ArrayList<>());
+        }
+
+        addEdge(1, 3);
+        addEdge(3, 2);
+        addEdge(2, 4);
+        addEdge(4, 5);
+
+        System.out.print("DFS : ");
+        DFS(1);
+
+        Arrays.fill(visited, false);
+
+        System.out.print("\nBFS : ");
+        BFS(1);
+
+        Arrays.fill(visited, false);
+
+        System.out.println();
+        System.out.println();
+        System.out.println(chked("(*)()()()()()"));
+        System.out.println(chked("({)(}){()}({})})"));
+        System.out.println(chked("()()()()()"));
+        System.out.println(chked("[][][][][][][][][][][]"));
+        System.out.println(chked("{}{}{{{{{{{}}}}}}}{}{}"));
+        System.out.println();
+
+        int[] a = {1, 2, 3, 4};
+        int[] b = {4, 3, 2, 1};
+
+        System.out.println("a : " + Arrays.toString(a) + "\nb : " + Arrays.toString(b) + "\n");
+        swapu(a, b);
+        System.out.println("정렬된 배열 :");
+        System.out.println("a : " + Arrays.toString(a) + "\nb : " + Arrays.toString(b));
+    
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+
+        System.out.print("전위 순회 : ");
+        Node.preorder(root);
+        System.out.println();
+    
+        System.out.print("중위 순회 : ");
+        Node.inorder(root);
+        System.out.println();
+        
+        System.out.print("후위 순회 : ");
+        Node.postorder(root);
+        System.out.println();
+    
+    
+    }
+
+}
