@@ -1,221 +1,118 @@
--- 장르 테이블
-CREATE TABLE MOVIE_GENRES (
-    genre_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 장르 고유 ID
-    genre_name VARCHAR2(50) NOT NULL -- 장르 이름 (예: 액션, 로맨스 등)
-);
-
--- 등급 테이블
-CREATE TABLE MOVIE_RATINGS (
-    rating_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 평점 고유 ID
-    rating_name VARCHAR2(50) NOT NULL, -- 평점 이름 (예: G, PG, R)
-    description VARCHAR2(255) -- 평점 설명
-);
-
--- 관람 연령 테이블
-CREATE TABLE MOVIE_AGE_RATINGS (
-    age_rating_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 관람 연령 고유 ID
-    age_rating_name VARCHAR2(50) NOT NULL, -- 관람 연령 이름 (예: 전체 관람가, 15세 이상)
-    description VARCHAR2(255) -- 관람 연령 설명
-);
-
 -- 사용자 테이블
 CREATE TABLE MOVIE_USERS (
-    user_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 사용자 고유 ID
-    phone VARCHAR2(20) UNIQUE NOT NULL, -- 전화번호 (중복 불가)
-    name VARCHAR2(100) NOT NULL, -- 사용자 이름
-    email VARCHAR2(255) NOT NULL, -- 사용자 이메일
-    password VARCHAR2(255) NOT NULL,
-    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 가입 일시
+    user_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 사용자 고유 ID (자동 증가)
+    phone VARCHAR2(20) UNIQUE NOT NULL,           -- 사용자 휴대폰 번호 (고유, 로그인 및 연락용)
+    name VARCHAR2(100) NOT NULL,                  -- 사용자 이름
+    email VARCHAR2(255) NOT NULL,                 -- 사용자 이메일 주소
+    password VARCHAR2(255) NOT NULL,              -- 사용자 비밀번호 (암호화 저장 권장)
+    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 계정 생성 시각 (기본값 현재 시각)
 );
 
-SELECT * FROM MOVIE_USERS;
-SELECT USER_ID, PHONE, NAME, EMAIL, TO_CHAR(CREATE_AT, 'YYYY-MM-DD HH24:MI:SS') FROM MOVIE_USERS;
-
-INSERT INTO MOVIE_USERS(phone, name, email) VALUES('010-8466-8317', '강다윤', 'dayoon071022@gmail.com');
-
--- 인물 테이블
-CREATE TABLE MOVIE_PEOPLE (
-    person_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 인물 고유 ID
-    name VARCHAR2(100) NOT NULL, -- 이름
-    birth TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 생년월일
-    nationality VARCHAR2(50), -- 국적
-    profile_image_url VARCHAR2(255), -- 프로필 이미지 URL
-    bio CLOB -- 인물 설명 (자기소개 등)
-);
-
--- 영화 테이블
+-- 영화 테이블 (장르, 평점, 관람연령을 컬럼으로 통합)
 CREATE TABLE MOVIE_MOVIES (
-    movie_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 영화 고유 ID
-    title VARCHAR2(255) NOT NULL, -- 영화 제목
-    release_date TIMESTAMP, -- 개봉일
-    poster_image_url VARCHAR2(255), -- 포스터 이미지 URL
-    rating_id NUMBER, -- 평점 ID (MOVIE_RATINGS 참조)
-    genre_id NUMBER, -- 장르 ID (MOVIE_GENRES 참조)
-    age_rating_id NUMBER, -- 관람 연령 ID (MOVIE_AGE_RATINGS 참조)
-    status VARCHAR2(20) DEFAULT 'COMING_SOON', -- 상영 상태
-    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 생성일
-    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 수정일
-    CONSTRAINT fk_movie_rating FOREIGN KEY (rating_id) REFERENCES MOVIE_RATINGS(rating_id),
-    CONSTRAINT fk_movie_genre FOREIGN KEY (genre_id) REFERENCES MOVIE_GENRES(genre_id),
-    CONSTRAINT fk_movie_age_rating FOREIGN KEY (age_rating_id) REFERENCES MOVIE_AGE_RATINGS(age_rating_id)
+    movie_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, -- 영화 ID
+    title VARCHAR2(255) NOT NULL,         -- 영화 제목
+    poster_image_url VARCHAR2(255),       -- 포스터 이미지
+    genre VARCHAR2(50),                   -- 장르
+    duration NUMBER                       -- 상영 시간(분)
 );
 
--- 영화 상세정보 테이블
-CREATE TABLE MOVIE_MOVIE_DETAILS (
-    movie_id NUMBER PRIMARY KEY, -- 영화 ID (MOVIE_MOVIES와 1:1 관계)
-    synopsis CLOB, -- 줄거리
-    duration NUMBER, -- 상영 시간 (분)
-    language VARCHAR2(50), -- 언어
-    country VARCHAR2(100), -- 제작 국가
-    release_type VARCHAR2(50), -- 개봉 유형 (예: 극장, OTT 등)
-    CONSTRAINT fk_details_movie FOREIGN KEY (movie_id) REFERENCES MOVIE_MOVIES(movie_id)
-);
-
--- 출연진 테이블
-CREATE TABLE MOVIE_CAST (
-    cast_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 출연진 고유 ID
-    movie_id NUMBER NOT NULL, -- 영화 ID (MOVIE_MOVIES 참조)
-    person_id NUMBER NOT NULL, -- 인물 ID (MOVIE_PEOPLE 참조)
-    role VARCHAR2(50), -- 역할 (예: 주연, 조연, 감독 등)
-    CONSTRAINT fk_cast_movie FOREIGN KEY (movie_id) REFERENCES MOVIE_MOVIES(movie_id),
-    CONSTRAINT fk_cast_person FOREIGN KEY (person_id) REFERENCES MOVIE_PEOPLE(person_id)
-);
-
--- 상영관 테이블
-CREATE TABLE MOVIE_THEATERS (
-    theater_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 상영관 고유 ID
-    theater_name VARCHAR2(100) NOT NULL, -- 상영관 이름
-    total_seats NUMBER NOT NULL, -- 총 좌석 수
-    theater_type VARCHAR2(50) -- 상영관 유형 (예: 일반, IMAX 등)
-);
-
--- 좌석 테이블
-CREATE TABLE MOVIE_SEATS (
-    seat_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 좌석 고유 ID
-    theater_id NUMBER NOT NULL, -- 상영관 ID (MOVIE_THEATERS 참조)
-    row_name VARCHAR2(5) NOT NULL, -- 행 이름 (예: A, B 등)
-    seat_number NUMBER NOT NULL, -- 열 번호
-    seat_type VARCHAR2(20) DEFAULT 'STANDARD', -- 좌석 유형 (예: 일반, VIP)
-    status VARCHAR2(20) DEFAULT 'AVAILABLE', -- 좌석 상태 (예: 예약 가능, 점검 중)
-    CONSTRAINT fk_seat_theater FOREIGN KEY (theater_id) REFERENCES MOVIE_THEATERS(theater_id),
-    CONSTRAINT uk_seat UNIQUE (theater_id, row_name, seat_number)
+-- 상영관 테이블 (좌석 정보 통합)
+CREATE TABLE MOVIE_CINEMAS (
+    cinema_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 상영관 고유 ID (자동 증가)
+    cinema_name VARCHAR2(100) NOT NULL,        -- 상영관 이름
+    total_seats NUMBER NOT NULL,                 -- 총 좌석 수
+    cinema_type VARCHAR2(50),                   -- 상영관 유형 (예: 일반, IMAX, 4DX 등)
+    seat_layout CLOB                             -- 좌석 배치 정보 (예: "A1-A20, B1-B20, C1-C20, ..."; JSON 또는 문자열)
 );
 
 -- 상영 시간표 테이블
 CREATE TABLE MOVIE_SHOWTIMES (
-    showtime_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 상영 시간표 고유 ID
-    movie_id NUMBER NOT NULL, -- 영화 ID (MOVIE_MOVIES 참조)
-    theater_id NUMBER NOT NULL, -- 상영관 ID (MOVIE_THEATERS 참조)
-    show_date TIMESTAMP NOT NULL, -- 상영 날짜
-    start_time TIMESTAMP NOT NULL, -- 상영 시작 시간
-    end_time TIMESTAMP, -- 상영 종료 시간
-    available_seats NUMBER, -- 잔여 좌석 수
-    price NUMBER NOT NULL, -- 티켓 가격
-    status VARCHAR2(20) DEFAULT 'AVAILABLE', -- 상영 상태
+    showtime_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 상영 시간표 고유 ID (자동 증가)
+    movie_id NUMBER NOT NULL,                    -- 상영 영화 ID (외래키)
+    cinema_id NUMBER NOT NULL,                  -- 상영관 ID (외래키)
+    show_date DATE NOT NULL,                      -- 상영 날짜 (년-월-일)
+    start_time DATE NOT NULL,                     -- 상영 시작 시각 (날짜+시간)
+    end_time DATE,                                -- 상영 종료 시각 (날짜+시간)
+    available_seats NUMBER,                       -- 남은 좌석 수
+    price NUMBER NOT NULL,                        -- 티켓 가격
+    status VARCHAR2(20) DEFAULT 'AVAILABLE',      -- 상영 상태 (예: AVAILABLE, SOLD_OUT, CANCELLED 등)
     CONSTRAINT fk_showtime_movie FOREIGN KEY (movie_id) REFERENCES MOVIE_MOVIES(movie_id),
-    CONSTRAINT fk_showtime_theater FOREIGN KEY (theater_id) REFERENCES MOVIE_THEATERS(theater_id)
+    CONSTRAINT fk_showtime_cinema FOREIGN KEY (cinema_id) REFERENCES MOVIE_CINEMAS(cinema_id)
 );
 
--- 예매 테이블
+-- 예매 테이블 (결제 정보 통합)
 CREATE TABLE MOVIE_RESERVATIONS (
-    reservation_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 예매 고유 ID
-    user_id NUMBER, -- 사용자 ID (MOVIE_USERS 참조)
-    showtime_id NUMBER NOT NULL, -- 상영 시간표 ID (MOVIE_SHOWTIMES 참조)
-    reservation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 예매 일시
-    total_amount NUMBER NOT NULL, -- 총 결제 금액
-    reservation_status VARCHAR2(20) DEFAULT 'CONFIRMED', -- 예매 상태
-    reservation_code VARCHAR2(20) UNIQUE, -- 예매 코드 (중복 불가)
+    reservation_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 예매 고유 ID (자동 증가)
+    user_id NUMBER,                              -- 예매한 사용자 ID (외래키)
+    showtime_id NUMBER NOT NULL,                 -- 예매된 상영 시간표 ID (외래키)
+    reservation_movie_poster_url CLOB,           -- 예매한 영화의 포스터 URL
+    reservation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 예매한 시각
+    total_amount NUMBER NOT NULL,                 -- 결제 총액
+    reservation_status VARCHAR2(20) DEFAULT 'CONFIRMED',  -- 예매 상태 (예: CONFIRMED, CANCELLED)
+    reservation_code VARCHAR2(20) UNIQUE,         -- 예매 코드 (고유)
+    reserved_seats VARCHAR2(500),                  -- 예매된 좌석 번호 목록 (예: "A1,A2,B3")
+    payment_method VARCHAR2(50),                   -- 결제 수단 (예: 신용카드, 체크카드, 계좌이체 등)
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 결제 완료 시각
     CONSTRAINT fk_reservation_user FOREIGN KEY (user_id) REFERENCES MOVIE_USERS(user_id),
     CONSTRAINT fk_reservation_showtime FOREIGN KEY (showtime_id) REFERENCES MOVIE_SHOWTIMES(showtime_id)
 );
 
--- 예매된 좌석 테이블
-CREATE TABLE MOVIE_RESERVED_SEATS (
-    reserved_seat_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 예매 좌석 고유 ID
-    reservation_id NUMBER NOT NULL, -- 예매 ID (MOVIE_RESERVATIONS 참조)
-    seat_id NUMBER NOT NULL, -- 좌석 ID (MOVIE_SEATS 참조)
-    showtime_id NUMBER NOT NULL, -- 상영 시간표 ID (MOVIE_SHOWTIMES 참조)
-    CONSTRAINT fk_reserved_reservation FOREIGN KEY (reservation_id) REFERENCES MOVIE_RESERVATIONS(reservation_id),
-    CONSTRAINT fk_reserved_seat FOREIGN KEY (seat_id) REFERENCES MOVIE_SEATS(seat_id),
-    CONSTRAINT fk_reserved_showtime FOREIGN KEY (showtime_id) REFERENCES MOVIE_SHOWTIMES(showtime_id),
-    CONSTRAINT uk_reserved_seat UNIQUE (seat_id, showtime_id)
-);
-
--- 결제 수단 테이블
-CREATE TABLE MOVIE_PAYMENT_METHODS (
-    payment_method_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 결제 수단 고유 ID
-    method_name VARCHAR2(100) NOT NULL, -- 결제 수단 이름 (예: 신용카드, 계좌이체)
-    is_active VARCHAR2(10) DEFAULT 'Y' -- 사용 여부 (Y/N)
-);
-
--- 결제 테이블
-CREATE TABLE MOVIE_PAYMENTS (
-    payment_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 결제 고유 ID
-    user_id NUMBER, -- 사용자 ID (MOVIE_USERS 참조)
-    movie_id NUMBER, -- 영화 ID (MOVIE_MOVIES 참조)
-    reservation_id NUMBER, -- 예매 ID (MOVIE_RESERVATIONS 참조)
-    payment_method_id NUMBER, -- 결제 수단 ID (MOVIE_PAYMENT_METHODS 참조)
-    payment_date TIMESTAMP, -- 결제 일시
-    amount NUMBER, -- 결제 금액
-    payment_status VARCHAR2(50), -- 결제 상태
-    transaction_id VARCHAR2(100), -- 거래 번호
-    CONSTRAINT fk_payment_user FOREIGN KEY (user_id) REFERENCES MOVIE_USERS(user_id),
-    CONSTRAINT fk_payment_movie FOREIGN KEY (movie_id) REFERENCES MOVIE_MOVIES(movie_id),
-    CONSTRAINT fk_payment_reservation FOREIGN KEY (reservation_id) REFERENCES MOVIE_RESERVATIONS(reservation_id),
-    CONSTRAINT fk_payment_method FOREIGN KEY (payment_method_id) REFERENCES MOVIE_PAYMENT_METHODS(payment_method_id)
-);
-
---SELECT * FROM DBA_TABLES WHERE TABLE_NAME LIKE '%MOVIE%';
---SELECT * FROM (SELECT TABLE_NAME FROM DBA_TABLES WHERE TABLE_NAME LIKE 'MOVIE_%');
-
-INSERT INTO MOVIE_GENRES (genre_name) VALUES ('액션');
-INSERT INTO MOVIE_GENRES (genre_name) VALUES ('로맨스');
-INSERT INTO MOVIE_GENRES (genre_name) VALUES ('코미디');
-INSERT INTO MOVIE_GENRES (genre_name) VALUES ('공포');
-
-INSERT INTO MOVIE_RATINGS (rating_name, description) VALUES ('G', '전체 관람가');
-INSERT INTO MOVIE_RATINGS (rating_name, description) VALUES ('PG', '부모 지도하 관람 권장');
-INSERT INTO MOVIE_RATINGS (rating_name, description) VALUES ('R', '17세 미만 관람 불가');
-
-INSERT INTO MOVIE_AGE_RATINGS (age_rating_name, description) VALUES ('전체 관람가', '모든 연령 관람 가능');
-INSERT INTO MOVIE_AGE_RATINGS (age_rating_name, description) VALUES ('12세 이상', '12세 이상 관람 가능');
-INSERT INTO MOVIE_AGE_RATINGS (age_rating_name, description) VALUES ('15세 이상', '15세 이상 관람 가능');
-INSERT INTO MOVIE_AGE_RATINGS (age_rating_name, description) VALUES ('청소년 관람불가', '청소년은 관람할 수 없음');
-
-INSERT INTO MOVIE_PAYMENT_METHODS (method_name, is_active) VALUES ('신용카드', 'Y');
-INSERT INTO MOVIE_PAYMENT_METHODS (method_name, is_active) VALUES ('체크카드', 'Y');
-INSERT INTO MOVIE_PAYMENT_METHODS (method_name, is_active) VALUES ('계좌이체', 'Y');
-INSERT INTO MOVIE_PAYMENT_METHODS (method_name, is_active) VALUES ('카카오페이', 'X');
-INSERT INTO MOVIE_PAYMENT_METHODS (method_name, is_active) VALUES ('네이버페이', 'X');
-
-SELECT * FROM MOVIE_GENRES;
-SELECT * FROM MOVIE_RATINGS;
-SELECT * FROM MOVIE_AGE_RATINGS;
+-- 조회용 SELECT 문들
 SELECT * FROM MOVIE_USERS;
-SELECT * FROM MOVIE_PEOPLE;
 SELECT * FROM MOVIE_MOVIES;
-SELECT * FROM MOVIE_MOVIE_DETAILS;
-SELECT * FROM MOVIE_CAST;
-SELECT * FROM MOVIE_THEATERS;
-SELECT * FROM MOVIE_SEATS;
+SELECT * FROM MOVIE_CINEMAS;
 SELECT * FROM MOVIE_SHOWTIMES;
 SELECT * FROM MOVIE_RESERVATIONS;
-SELECT * FROM MOVIE_RESERVED_SEATS;
-SELECT * FROM MOVIE_PAYMENT_METHODS;
-SELECT * FROM MOVIE_PAYMENTS;
 
-DROP TABLE MOVIE_RESERVED_SEATS CASCADE CONSTRAINTS;
-DROP TABLE MOVIE_RESERVATIONS CASCADE CONSTRAINTS;
-DROP TABLE MOVIE_PAYMENTS CASCADE CONSTRAINTS;
-DROP TABLE MOVIE_PAYMENT_METHODS CASCADE CONSTRAINTS;
-DROP TABLE MOVIE_SHOWTIMES CASCADE CONSTRAINTS;
-DROP TABLE MOVIE_SEATS CASCADE CONSTRAINTS;
-DROP TABLE MOVIE_THEATERS CASCADE CONSTRAINTS;
-DROP TABLE MOVIE_CAST CASCADE CONSTRAINTS;
-DROP TABLE MOVIE_MOVIE_DETAILS CASCADE CONSTRAINTS;
-DROP TABLE MOVIE_MOVIES CASCADE CONSTRAINTS;
-DROP TABLE MOVIE_PEOPLE CASCADE CONSTRAINTS;
-DROP TABLE MOVIE_USERS CASCADE CONSTRAINTS;
-DROP TABLE MOVIE_AGE_RATINGS CASCADE CONSTRAINTS;
-DROP TABLE MOVIE_RATINGS CASCADE CONSTRAINTS;
-DROP TABLE MOVIE_GENRES CASCADE CONSTRAINTS;
+--DROP TABLE MOVIE_USERS CASCADE CONSTRAINT;
+--DROP TABLE MOVIE_MOVIES CASCADE CONSTRAINT;
+--DROP TABLE MOVIE_CINEMAS CASCADE CONSTRAINT;
+--DROP TABLE MOVIE_SHOWTIMES CASCADE CONSTRAINT;
+--DROP TABLE MOVIE_RESERVATIONS CASCADE CONSTRAINT;
+
+-- 영화 더미 데이터
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('기생충', 'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg', '드라마', 132);
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('벌새', 'https://image.tmdb.org/t/p/w500/kzUMfgRpH5TdtCBVS1KbzJ8G6Xl.jpg', '드라마', 138);
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('극한직업', 'https://image.tmdb.org/t/p/w500/lPiI8I4ipM3IWK0JgGrfGtIBQsL.jpg', '코미디', 111);
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('부산행', 'https://image.tmdb.org/t/p/w500/6R2LkfQPp6vuVhCJr8EiKkLVKDo.jpg', '액션', 118);
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('아가씨', 'https://image.tmdb.org/t/p/w500/hq3NLFRr2nIf6Ah8U0NmGfCRhJf.jpg', '드라마', 145);
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('올드보이', 'https://image.tmdb.org/t/p/w500/pWDtjs568ZfOTMbURQBYuT4Qj3a.jpg', '스릴러', 120);
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('엑시트', 'https://image.tmdb.org/t/p/w500/5I9yWKIBj1e1ACrjKhfh4y2JsCD.jpg', '액션', 103);
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('베테랑', 'https://image.tmdb.org/t/p/w500/Amk2zGFg8ZuUcKBjZHGm4gNdJld.jpg', '액션', 123);
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('왕의 남자', 'https://image.tmdb.org/t/p/w500/8jBWQfEzONh3Ut9FqTJ7eQx73I0.jpg', '드라마', 119);
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('범죄와의 전쟁', 'https://image.tmdb.org/t/p/w500/7GeBnCLEY2lrhcEQZdkWOTpOglk.jpg', '범죄', 133);
+
+-- 상영관 더미 데이터
+INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('1관', 180, '일반', 'A1-A15,B1-B15,C1-C15,D1-D15,E1-E15,F1-F15,G1-G15,H1-H15,I1-I15,J1-J15,K1-K15,L1-L15');
+INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('2관', 150, '일반', 'A1-A15,B1-B15,C1-C15,D1-D15,E1-E15,F1-F15,G1-G15,H1-H15,I1-I15,J1-J15');
+INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('3관', 120, 'VIP', 'A1-A12,B1-B12,C1-B12,D1-D12,E1-E12,F1-F12,G1-G12,H1-H12,I1-I12,J1-J12');
+INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('4관', 200, 'IMAX', 'A1-A20,B1-B20,C1-C20,D1-D20,E1-E20,F1-F20,G1-G20,H1-H20,I1-I20,J1-J20');
+INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('5관', 90, '4DX', 'A1-A9,B1-B9,C1-C9,D1-D9,E1-E9,F1-F9,G1-G9,H1-H9,I1-I9,J1-J9');
+INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('6관', 160, '일반', 'A1-A16,B1-B16,C1-C16,D1-D16,E1-E16,F1-F16,G1-G16,H1-H16,I1-I16,J1-J16');
+
+-- 상영 시간표 더미 데이터 (모두 2025년 7월 16일)
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (1, 1, DATE '2025-07-16', TO_DATE('2025-07-16 09:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 11:12', 'YYYY-MM-DD HH24:MI'), 180, 12000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (1, 2, DATE '2025-07-16', TO_DATE('2025-07-16 13:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 15:42', 'YYYY-MM-DD HH24:MI'), 150, 12000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (1, 3, DATE '2025-07-16', TO_DATE('2025-07-16 18:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 20:12', 'YYYY-MM-DD HH24:MI'), 120, 15000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (2, 1, DATE '2025-07-16', TO_DATE('2025-07-16 11:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 13:48', 'YYYY-MM-DD HH24:MI'), 180, 11000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (2, 4, DATE '2025-07-16', TO_DATE('2025-07-16 16:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 18:18', 'YYYY-MM-DD HH24:MI'), 200, 18000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (3, 2, DATE '2025-07-16', TO_DATE('2025-07-16 10:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 11:51', 'YYYY-MM-DD HH24:MI'), 150, 12000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (3, 5, DATE '2025-07-16', TO_DATE('2025-07-16 14:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 16:21', 'YYYY-MM-DD HH24:MI'), 90, 25000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (3, 6, DATE '2025-07-16', TO_DATE('2025-07-16 19:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 21:21', 'YYYY-MM-DD HH24:MI'), 160, 13000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (4, 4, DATE '2025-07-16', TO_DATE('2025-07-16 10:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 12:28', 'YYYY-MM-DD HH24:MI'), 200, 18000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (4, 1, DATE '2025-07-16', TO_DATE('2025-07-16 15:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 16:58', 'YYYY-MM-DD HH24:MI'), 180, 12000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (4, 6, DATE '2025-07-16', TO_DATE('2025-07-16 21:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 23:28', 'YYYY-MM-DD HH24:MI'), 160, 13000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (5, 3, DATE '2025-07-16', TO_DATE('2025-07-16 12:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 14:25', 'YYYY-MM-DD HH24:MI'), 120, 15000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (5, 2, DATE '2025-07-16', TO_DATE('2025-07-16 20:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 22:25', 'YYYY-MM-DD HH24:MI'), 150, 12000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (6, 1, DATE '2025-07-16', TO_DATE('2025-07-16 21:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 23:00', 'YYYY-MM-DD HH24:MI'), 180, 12000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (6, 3, DATE '2025-07-16', TO_DATE('2025-07-16 16:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 18:30', 'YYYY-MM-DD HH24:MI'), 120, 15000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (7, 5, DATE '2025-07-16', TO_DATE('2025-07-16 11:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 12:43', 'YYYY-MM-DD HH24:MI'), 90, 25000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (7, 6, DATE '2025-07-16', TO_DATE('2025-07-16 17:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 18:43', 'YYYY-MM-DD HH24:MI'), 160, 13000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (8, 4, DATE '2025-07-16', TO_DATE('2025-07-16 13:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 15:03', 'YYYY-MM-DD HH24:MI'), 200, 18000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (8, 2, DATE '2025-07-16', TO_DATE('2025-07-16 17:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 19:33', 'YYYY-MM-DD HH24:MI'), 150, 12000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (9, 3, DATE '2025-07-16', TO_DATE('2025-07-16 14:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 15:59', 'YYYY-MM-DD HH24:MI'), 120, 15000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (9, 1, DATE '2025-07-16', TO_DATE('2025-07-16 19:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 20:59', 'YYYY-MM-DD HH24:MI'), 180, 12000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (10, 6, DATE '2025-07-16', TO_DATE('2025-07-16 15:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 17:43', 'YYYY-MM-DD HH24:MI'), 160, 13000, 'AVAILABLE');
+INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (10, 4, DATE '2025-07-16', TO_DATE('2025-07-16 20:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 22:43', 'YYYY-MM-DD HH24:MI'), 200, 18000, 'AVAILABLE');
+
