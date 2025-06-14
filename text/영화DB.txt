@@ -14,12 +14,8 @@ CREATE TABLE MOVIE_MOVIES (
     title VARCHAR2(255) NOT NULL,         -- 영화 제목
     poster_image_url VARCHAR2(255),       -- 포스터 이미지
     genre VARCHAR2(50),                   -- 장르
-<<<<<<< HEAD
     duration NUMBER,                       -- 상영 시간(분)
     rating_age VARCHAR2(100)              -- 관람 연령 (예: '전체관람가', '12세 이상', '15세 이상', '청소년 관람불가')
-=======
-    duration NUMBER                       -- 상영 시간(분)
->>>>>>> ecc10f5bb117c90c7f28ae08c42d94fc5d9c738c
 );
 
 -- 상영관 테이블 (좌석 정보 통합)
@@ -51,11 +47,7 @@ CREATE TABLE MOVIE_RESERVATIONS (
     reservation_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1 NOCACHE) PRIMARY KEY, -- 예매 고유 ID (자동 증가)
     user_id NUMBER,                              -- 예매한 사용자 ID (외래키)
     showtime_id NUMBER NOT NULL,                 -- 예매된 상영 시간표 ID (외래키)
-<<<<<<< HEAD
     reservation_movie_poster_url CLOB,           -- 예매한 영화의 포스터 URL (예매한 티켓 출력할 때 조인 안 할려고)
-=======
-    reservation_movie_poster_url CLOB,           -- 예매한 영화의 포스터 URL
->>>>>>> ecc10f5bb117c90c7f28ae08c42d94fc5d9c738c
     reservation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 예매한 시각
     total_amount NUMBER NOT NULL,                 -- 결제 총액
     reservation_status VARCHAR2(20) DEFAULT 'CONFIRMED',  -- 예매 상태 (예: CONFIRMED, CANCELLED)
@@ -67,10 +59,8 @@ CREATE TABLE MOVIE_RESERVATIONS (
     CONSTRAINT fk_reservation_showtime FOREIGN KEY (showtime_id) REFERENCES MOVIE_SHOWTIMES(showtime_id)
 );
 
-<<<<<<< HEAD
 SAVEPOINT M6;
 
-=======
 -- 영화 더미 데이터
 INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('기생충', 'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg', '드라마', 132);
 INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('벌새', 'https://upload.wikimedia.org/wikipedia/ko/c/c8/%EB%B2%8C%EC%83%88_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg', '드라마', 138);
@@ -117,14 +107,12 @@ INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_tim
 INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (10, 4, DATE '2025-07-16', TO_DATE('2025-07-16 20:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 22:43', 'YYYY-MM-DD HH24:MI'), 200, 18000, 'AVAILABLE');
 
 -- 조회용 SELECT 문들
->>>>>>> ecc10f5bb117c90c7f28ae08c42d94fc5d9c738c
 SELECT * FROM MOVIE_USERS;
 SELECT * FROM MOVIE_MOVIES;
 SELECT * FROM MOVIE_CINEMAS;
 SELECT * FROM MOVIE_SHOWTIMES;
 SELECT * FROM MOVIE_RESERVATIONS;
 
-<<<<<<< HEAD
 --UPDATE MOVIE_MOVIES SET RATING_AGE = '15세 이상 관람가' WHERE MOVIE_ID = 1;
 --UPDATE MOVIE_MOVIES SET RATING_AGE = '15세 이상 관람가' WHERE MOVIE_ID = 2;
 --UPDATE MOVIE_MOVIES SET RATING_AGE = '15세 이상 관람가' WHERE MOVIE_ID = 3;
@@ -196,7 +184,6 @@ SELECT * FROM MOVIE_RESERVATIONS;
 --DROP TABLE MOVIE_SHOWTIMES CASCADE CONSTRAINT;
 --DROP TABLE MOVIE_RESERVATIONS CASCADE CONSTRAINT;
 
-<<<<<<< HEAD
 SELECT DISTINCT
     m.movie_id,
     m.title,
@@ -240,8 +227,6 @@ LEFT JOIN MOVIE_SHOWTIMES s ON m.movie_id = s.movie_id
 LEFT JOIN MOVIE_CINEMAS c ON s.cinema_id = c.cinema_id
 ORDER BY m.movie_id, s.start_time;
 
-=======
->>>>>>> ecc10f5bb117c90c7f28ae08c42d94fc5d9c738c
 -- 1. 영화 목록 조회
 SELECT movie_id, title, poster_image_url, genre, duration
 FROM MOVIE_MOVIES
@@ -258,12 +243,8 @@ SELECT
     s.available_seats,
     s.price,
     s.status,
-<<<<<<< HEAD
     TO_CHAR(s.show_date, 'YYYY-MM-DD') AS show_date, 
     m.rating_age 
-=======
-    TO_CHAR(s.show_date, 'YYYY-MM-DD') AS show_date 
->>>>>>> ecc10f5bb117c90c7f28ae08c42d94fc5d9c738c
 FROM MOVIE_SHOWTIMES s
 JOIN MOVIE_MOVIES m ON s.movie_id = m.movie_id
 JOIN MOVIE_CINEMAS c ON s.cinema_id = c.cinema_id
@@ -316,8 +297,6 @@ WHERE s.available_seats > 0
   AND s.show_date = DATE '2025-07-16'
 ORDER BY m.title, s.start_time;
 
-<<<<<<< HEAD
-=======
 -- 7. 특정 사용자의 예매 내역 조회
 SELECT 
     r.reservation_id,
@@ -398,15 +377,12 @@ ORDER BY
         ELSE 4
     END;
 
-<<<<<<< HEAD
-=======
 -- 11. 사용자 로그인용 쿼리
 SELECT user_id, name, email, phone
 FROM MOVIE_USERS
 WHERE phone = '010-1234-5678'  -- 입력받은 휴대폰 번호
   AND password = 'hashed_password';  -- 암호화된 비밀번호와 비교
 
->>>>>>> ecc10f5bb117c90c7f28ae08c42d94fc5d9c738c
 -- 12. 예매 시 좌석 수 업데이트 (트랜잭션 처리 필요)
 UPDATE MOVIE_SHOWTIMES 
 SET available_seats = available_seats - 2  -- 예매한 좌석 수만큼 차감
@@ -429,24 +405,16 @@ SELECT
     u.phone,
     m.title AS movie_title,
     c.cinema_name,
-<<<<<<< HEAD
     TO_CHAR(s.start_time, 'YYYY-MM-DD HH24:MI') AS start_time,
     r.reserved_seats,
     r.total_amount,
     r.reservation_status,
     r.reservation_movie_poster_url 
-=======
-    TO_CHAR(s.start_time, 'YYYY-MM-DD HH24:MI') AS showtime,
-    r.reserved_seats,
-    r.total_amount,
-    r.reservation_status
->>>>>>> ecc10f5bb117c90c7f28ae08c42d94fc5d9c738c
 FROM MOVIE_RESERVATIONS r
 JOIN MOVIE_USERS u ON r.user_id = u.user_id
 JOIN MOVIE_SHOWTIMES s ON r.showtime_id = s.showtime_id
 JOIN MOVIE_MOVIES m ON s.movie_id = m.movie_id
 JOIN MOVIE_CINEMAS c ON s.cinema_id = c.cinema_id
-<<<<<<< HEAD
 WHERE r.reservation_code = '0614-2099-5266-853';  -- 예매 코드
 
 SELECT r.reserved_seats FROM MOVIE_RESERVATIONS r
