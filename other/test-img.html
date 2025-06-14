@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테스트 이미지 다운로더</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .controls {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+        
+        .controls input, .controls button {
+            margin: 5px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .controls button {
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .controls button:hover {
+            background: #0056b3;
+        }
+        
+        .preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .preview img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            background: #e7f3ff;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>테스트 이미지 다운로더</h1>
+    
+    <div class="controls">
+        <label>이미지 개수: <input type="number" id="count" value="10" min="1" max="50"></label>
+        <label>가로: <input type="number" id="width" value="300" min="100" max="1000"></label>
+        <label>높이: <input type="number" id="height" value="200" min="100" max="1000"></label><br>
+        <label>파일명 접두사: <input type="text" id="prefix" value="test-img"></label>
+        <br>
+        <button onclick="previewImages()">미리보기</button>
+        <button onclick="downloadImages()">다운로드</button>
+        <button onclick="clearPreview()">미리보기 지우기</button>
+    </div>
+    
+    <div id="status" class="status"></div>
+    <div id="preview" class="preview"></div>
+
+    <script>
+        let imageSeeds = [];
+        
+        function showStatus(message) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.style.display = 'block';
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 3000);
+        }
+        
+        function previewImages() {
+            const count = parseInt(document.getElementById('count').value);
+            const width = parseInt(document.getElementById('width').value);
+            const height = parseInt(document.getElementById('height').value);
+            const preview = document.getElementById('preview');
+            
+            // 새로운 시드 생성
+            imageSeeds = [];
+            preview.innerHTML = '';
+            
+            for (let i = 0; i < count; i++) {
+                const seed = Math.random().toString(36).substring(7);
+                imageSeeds.push(seed);
+                
+                const img = document.createElement('img');
+                img.src = `https://picsum.photos/seed/${seed}/${width}/${height}`;
+                img.alt = `테스트 이미지 ${i + 1}`;
+                preview.appendChild(img);
+            }
+            
+            showStatus(`${count}개 이미지 미리보기 생성됨`);
+        }
+        
+        async function downloadImages() {
+            const count = parseInt(document.getElementById('count').value);
+            const width = parseInt(document.getElementById('width').value);
+            const height = parseInt(document.getElementById('height').value);
+            const prefix = document.getElementById('prefix').value;
+            
+            if (imageSeeds.length === 0) {
+                alert('먼저 미리보기를 생성해주세요!');
+                return;
+            }
+            
+            showStatus(`${count}개 이미지 다운로드 시작...`);
+            
+            for (let i = 0; i < imageSeeds.length; i++) {
+                try {
+                    const seed = imageSeeds[i];
+                    const url = `https://picsum.photos/seed/${seed}/${width}/${height}`;
+                    
+                    // 이미지를 fetch로 가져오기
+                    const response = await fetch(url);
+                    const blob = await response.blob();
+                    
+                    // Blob URL 생성
+                    const blobUrl = URL.createObjectURL(blob);
+                    
+                    // 다운로드 링크 생성
+                    const a = document.createElement('a');
+                    a.href = blobUrl;
+                    a.download = `${prefix}-${i + 1}.jpg`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    
+                    // 메모리 정리
+                    URL.revokeObjectURL(blobUrl);
+                    
+                    // 다음 다운로드까지 잠시 대기
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                    
+                } catch (error) {
+                    console.error(`이미지 ${i + 1} 다운로드 실패:`, error);
+                }
+            }
+            
+            showStatus('다운로드 완료!');
+        }
+        
+        function clearPreview() {
+            document.getElementById('preview').innerHTML = '';
+            imageSeeds = [];
+            showStatus('미리보기 지워짐');
+        }
+        
+        // 자동 다운로드 (원래 기능)
+        async function autoDownload() {
+            const count = parseInt(document.getElementById('count').value);
+            const width = parseInt(document.getElementById('width').value);
+            const height = parseInt(document.getElementById('height').value);
+            const prefix = document.getElementById('prefix').value;
+            
+            for (let i = 0; i < count; i++) {
+                try {
+                    const seed = Math.random().toString(36).substring(7);
+                    const url = `https://picsum.photos/seed/${seed}/${width}/${height}`;
+                    
+                    const response = await fetch(url);
+                    const blob = await response.blob();
+                    const blobUrl = URL.createObjectURL(blob);
+                    
+                    const a = document.createElement('a');
+                    a.href = blobUrl;
+                    a.download = `${prefix}-${i + 1}.jpg`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    
+                    URL.revokeObjectURL(blobUrl);
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                    
+                } catch (error) {
+                    console.error(`이미지 ${i + 1} 다운로드 실패:`, error);
+                }
+            }
+        }
+        
+        // URL 파라미터로 자동 실행 (예: ?auto=true)
+        if (new URLSearchParams(window.location.search).get('auto') === 'true') {
+            window.onload = autoDownload;
+        }
+    </script>
+</body>
+</html>
