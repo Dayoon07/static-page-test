@@ -59,24 +59,22 @@ CREATE TABLE MOVIE_RESERVATIONS (
     CONSTRAINT fk_reservation_showtime FOREIGN KEY (showtime_id) REFERENCES MOVIE_SHOWTIMES(showtime_id)
 );
 
-SAVEPOINT M6;
-
 -- 영화 더미 데이터
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('기생충', 'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg', '드라마', 132);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('벌새', 'https://upload.wikimedia.org/wikipedia/ko/c/c8/%EB%B2%8C%EC%83%88_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg', '드라마', 138);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('극한직업', 'https://web-cf-image.cjenm.com/crop/660x950/public/share/metamng/programs/extremejob-movie-poster-ko-001-01.jpg_1645638949085.jpg?v=1679468009', '코미디', 111);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('부산행', 'https://i.namu.wiki/i/8lfVxCkzXgnK5_xfX8RnT8L_a1IlcFHeshO2corroAW49TAtljTkXqBztCV6Fbmm2bUmgFtLNmLcAV0B9reVBA.webp', '액션', 118);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('아가씨', 'https://i.namu.wiki/i/ReWOyx652-CFKDqrYZXA4BxhHLkstYtEl-lu9HloYOmN9WJA4K1FxOdcvH-yYgaMAEKDYVkjbHkwks5W7KaDOw.webp', '드라마', 145);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('올드보이', 'https://upload.wikimedia.org/wikipedia/ko/b/b5/%EC%98%AC%EB%93%9C%EB%B3%B4%EC%9D%B4_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg', '스릴러', 120);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('엑시트', 'https://theviewers.co.kr/Files/30/Images/201906/37340_33635_1750.jpg', '액션', 103);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('베테랑', 'https://i.namu.wiki/i/YHFxNLmOCJsLZ9vWDEjFGW90LgxsMXvcNXgxpOVo9jJrheXMXkhRPahBwCRshqhng2NBfJDOEOfGC29Ypz-YkA.webp', '액션', 123);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('하이파이브', 'https://i.namu.wiki/i/PPiVbtDFxLl4h9g_wJYdNJmiNA2owiz4WjEQlBYBWfr-9Wia_eFycSgqfbMDwQDWjfOQ_fsv1T-F0DGDw-7Rag.webp', '드라마', 119);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('범죄와의 전쟁', 'https://i.namu.wiki/i/ws6yJDqL_JxkiomsfeRGft690tM-QH_tB2CJCEgoXi6t9X0BdjMC94aIAJk48SPPYZHj7uxeYVp83pZfSFdYCw.webp', '범죄', 133);
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration, rating_age) VALUES ('기생충', 'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg', '드라마', 132, '15세 이상 관람가');
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration, rating_age) VALUES ('극한직업', 'https://web-cf-image.cjenm.com/crop/660x950/public/share/metamng/programs/extremejob-movie-poster-ko-001-01.jpg_1645638949085.jpg?v=1679468009', '코미디', 111, '15세 이상 관람가');
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration, rating_age) VALUES ('부산행', 'https://i.namu.wiki/i/8lfVxCkzXgnK5_xfX8RnT8L_a1IlcFHeshO2corroAW49TAtljTkXqBztCV6Fbmm2bUmgFtLNmLcAV0B9reVBA.webp', '액션', 118, '15세 이상 관람가');
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration, rating_age) VALUES ('올드보이', 'https://upload.wikimedia.org/wikipedia/ko/b/b5/%EC%98%AC%EB%93%9C%EB%B3%B4%EC%9D%B4_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg', '스릴러', 120, '15세 이상 관람가');
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration, rating_age) VALUES ('엑시트', 'https://theviewers.co.kr/Files/30/Images/201906/37340_33635_1750.jpg', '액션', 103, '12세 이상 관람가');
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration, rating_age) VALUES ('베테랑', 'https://i.namu.wiki/i/YHFxNLmOCJsLZ9vWDEjFGW90LgxsMXvcNXgxpOVo9jJrheXMXkhRPahBwCRshqhng2NBfJDOEOfGC29Ypz-YkA.webp', '액션', 123, '청소년 관람불가');
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration, rating_age) VALUES ('하이파이브', 'https://i.namu.wiki/i/PPiVbtDFxLl4h9g_wJYdNJmiNA2owiz4WjEQlBYBWfr-9Wia_eFycSgqfbMDwQDWjfOQ_fsv1T-F0DGDw-7Rag.webp', '드라마', 119, '15세 이상 관람가');
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration, rating_age) VALUES ('범죄와의 전쟁', 'https://i.namu.wiki/i/ws6yJDqL_JxkiomsfeRGft690tM-QH_tB2CJCEgoXi6t9X0BdjMC94aIAJk48SPPYZHj7uxeYVp83pZfSFdYCw.webp', '범죄', 133, '청소년 관람불가');
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration, rating_age) VALUES ('드래곤 길들이기', 'https://ojsfile.ohmynews.com/STD_IMG_FILE/2025/0612/IE003480775_STD.jpg', '판타지', 125, '전체관람가');
+INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration, rating_age) VALUES ('인터스텔라', 'https://upload.wikimedia.org/wikipedia/ko/b/b7/%EC%9D%B8%ED%84%B0%EC%8A%A4%ED%85%94%EB%9D%BC.jpg', 'SF', 169, '12세 이상 관람가');
 
 -- 상영관 더미 데이터
 INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('1관', 180, '일반', 'A1-A15,B1-B15,C1-C15,D1-D15,E1-E15,F1-F15,G1-G15,H1-H15,I1-I15,J1-J15,K1-K15,L1-L15');
 INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('2관', 150, '일반', 'A1-A15,B1-B15,C1-C15,D1-D15,E1-E15,F1-F15,G1-G15,H1-H15,I1-I15,J1-J15');
-INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('3관', 120, 'VIP', 'A1-A12,B1-B12,C1-B12,D1-D12,E1-E12,F1-F12,G1-G12,H1-H12,I1-I12,J1-J12');
+INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('3관', 120, 'VIP', 'A1-A12,B1-B12,C1-C12,D1-D12,E1-E12,F1-F12,G1-G12,H1-H12,I1-I12,J1-J12');
 INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('4관', 200, 'IMAX', 'A1-A20,B1-B20,C1-C20,D1-D20,E1-E20,F1-F20,G1-G20,H1-H20,I1-I20,J1-J20');
 INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('5관', 90, '4DX', 'A1-A9,B1-B9,C1-C9,D1-D9,E1-E9,F1-F9,G1-G9,H1-H9,I1-I9,J1-J9');
 INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('6관', 160, '일반', 'A1-A16,B1-B16,C1-C16,D1-D16,E1-E16,F1-F16,G1-G16,H1-H16,I1-I16,J1-J16');
@@ -113,71 +111,12 @@ SELECT * FROM MOVIE_CINEMAS;
 SELECT * FROM MOVIE_SHOWTIMES;
 SELECT * FROM MOVIE_RESERVATIONS;
 
---UPDATE MOVIE_MOVIES SET RATING_AGE = '15세 이상 관람가' WHERE MOVIE_ID = 1;
---UPDATE MOVIE_MOVIES SET RATING_AGE = '15세 이상 관람가' WHERE MOVIE_ID = 2;
---UPDATE MOVIE_MOVIES SET RATING_AGE = '15세 이상 관람가' WHERE MOVIE_ID = 3;
---UPDATE MOVIE_MOVIES SET RATING_AGE = '15세 이상 관람가' WHERE MOVIE_ID = 4;
---UPDATE MOVIE_MOVIES SET RATING_AGE = '청소년 관람불가' WHERE MOVIE_ID = 5;
---UPDATE MOVIE_MOVIES SET RATING_AGE = '청소년 관람불가' WHERE MOVIE_ID = 6;
---UPDATE MOVIE_MOVIES SET RATING_AGE = '12세 이상 관람가' WHERE MOVIE_ID = 7;
---UPDATE MOVIE_MOVIES SET RATING_AGE = '15세 이상 관람가' WHERE MOVIE_ID = 8;
---UPDATE MOVIE_MOVIES SET RATING_AGE = '15세 이상 관람가' WHERE MOVIE_ID = 9;
---UPDATE MOVIE_MOVIES SET RATING_AGE = '청소년 관람불가' WHERE MOVIE_ID = 10;
-
--- 영화 더미 데이터
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('기생충', 'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg', '드라마', 132);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('벌새', 'https://upload.wikimedia.org/wikipedia/ko/c/c8/%EB%B2%8C%EC%83%88_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg', '드라마', 138);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('극한직업', 'https://web-cf-image.cjenm.com/crop/660x950/public/share/metamng/programs/extremejob-movie-poster-ko-001-01.jpg_1645638949085.jpg?v=1679468009', '코미디', 111);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('부산행', 'https://i.namu.wiki/i/8lfVxCkzXgnK5_xfX8RnT8L_a1IlcFHeshO2corroAW49TAtljTkXqBztCV6Fbmm2bUmgFtLNmLcAV0B9reVBA.webp', '액션', 118);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('아가씨', 'https://i.namu.wiki/i/ReWOyx652-CFKDqrYZXA4BxhHLkstYtEl-lu9HloYOmN9WJA4K1FxOdcvH-yYgaMAEKDYVkjbHkwks5W7KaDOw.webp', '드라마', 145);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('올드보이', 'https://upload.wikimedia.org/wikipedia/ko/b/b5/%EC%98%AC%EB%93%9C%EB%B3%B4%EC%9D%B4_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg', '스릴러', 120);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('엑시트', 'https://theviewers.co.kr/Files/30/Images/201906/37340_33635_1750.jpg', '액션', 103);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('베테랑', 'https://i.namu.wiki/i/YHFxNLmOCJsLZ9vWDEjFGW90LgxsMXvcNXgxpOVo9jJrheXMXkhRPahBwCRshqhng2NBfJDOEOfGC29Ypz-YkA.webp', '액션', 123);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('하이파이브', 'https://i.namu.wiki/i/PPiVbtDFxLl4h9g_wJYdNJmiNA2owiz4WjEQlBYBWfr-9Wia_eFycSgqfbMDwQDWjfOQ_fsv1T-F0DGDw-7Rag.webp', '드라마', 119);
-INSERT INTO MOVIE_MOVIES (title, poster_image_url, genre, duration) VALUES ('범죄와의 전쟁', 'https://i.namu.wiki/i/ws6yJDqL_JxkiomsfeRGft690tM-QH_tB2CJCEgoXi6t9X0BdjMC94aIAJk48SPPYZHj7uxeYVp83pZfSFdYCw.webp', '범죄', 133);
-
--- 상영관 더미 데이터
-INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('1관', 180, '일반', 'A1-A15,B1-B15,C1-C15,D1-D15,E1-E15,F1-F15,G1-G15,H1-H15,I1-I15,J1-J15,K1-K15,L1-L15');
-INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('2관', 150, '일반', 'A1-A15,B1-B15,C1-C15,D1-D15,E1-E15,F1-F15,G1-G15,H1-H15,I1-I15,J1-J15');
-INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('3관', 120, 'VIP', 'A1-A12,B1-B12,C1-B12,D1-D12,E1-E12,F1-F12,G1-G12,H1-H12,I1-I12,J1-J12');
-INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('4관', 200, 'IMAX', 'A1-A20,B1-B20,C1-C20,D1-D20,E1-E20,F1-F20,G1-G20,H1-H20,I1-I20,J1-J20');
-INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('5관', 90, '4DX', 'A1-A9,B1-B9,C1-C9,D1-D9,E1-E9,F1-F9,G1-G9,H1-H9,I1-I9,J1-J9');
-INSERT INTO MOVIE_CINEMAS (cinema_name, total_seats, cinema_type, seat_layout) VALUES ('6관', 160, '일반', 'A1-A16,B1-B16,C1-C16,D1-D16,E1-E16,F1-F16,G1-G16,H1-H16,I1-I16,J1-J16');
-
--- 상영 시간표 더미 데이터 (모두 2025년 7월 16일)
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (1, 1, DATE '2025-07-16', TO_DATE('2025-07-16 09:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 11:12', 'YYYY-MM-DD HH24:MI'), 180, 12000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (1, 2, DATE '2025-07-16', TO_DATE('2025-07-16 13:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 15:42', 'YYYY-MM-DD HH24:MI'), 150, 12000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (1, 3, DATE '2025-07-16', TO_DATE('2025-07-16 18:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 20:12', 'YYYY-MM-DD HH24:MI'), 120, 15000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (2, 1, DATE '2025-07-16', TO_DATE('2025-07-16 11:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 13:48', 'YYYY-MM-DD HH24:MI'), 180, 11000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (2, 4, DATE '2025-07-16', TO_DATE('2025-07-16 16:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 18:18', 'YYYY-MM-DD HH24:MI'), 200, 18000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (3, 2, DATE '2025-07-16', TO_DATE('2025-07-16 10:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 11:51', 'YYYY-MM-DD HH24:MI'), 150, 12000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (3, 5, DATE '2025-07-16', TO_DATE('2025-07-16 14:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 16:21', 'YYYY-MM-DD HH24:MI'), 90, 25000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (3, 6, DATE '2025-07-16', TO_DATE('2025-07-16 19:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 21:21', 'YYYY-MM-DD HH24:MI'), 160, 13000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (4, 4, DATE '2025-07-16', TO_DATE('2025-07-16 10:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 12:28', 'YYYY-MM-DD HH24:MI'), 200, 18000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (4, 1, DATE '2025-07-16', TO_DATE('2025-07-16 15:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 16:58', 'YYYY-MM-DD HH24:MI'), 180, 12000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (4, 6, DATE '2025-07-16', TO_DATE('2025-07-16 21:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 23:28', 'YYYY-MM-DD HH24:MI'), 160, 13000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (5, 3, DATE '2025-07-16', TO_DATE('2025-07-16 12:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 14:25', 'YYYY-MM-DD HH24:MI'), 120, 15000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (5, 2, DATE '2025-07-16', TO_DATE('2025-07-16 20:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 22:25', 'YYYY-MM-DD HH24:MI'), 150, 12000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (6, 1, DATE '2025-07-16', TO_DATE('2025-07-16 21:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 23:00', 'YYYY-MM-DD HH24:MI'), 180, 12000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (6, 3, DATE '2025-07-16', TO_DATE('2025-07-16 16:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 18:30', 'YYYY-MM-DD HH24:MI'), 120, 15000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (7, 5, DATE '2025-07-16', TO_DATE('2025-07-16 11:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 12:43', 'YYYY-MM-DD HH24:MI'), 90, 25000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (7, 6, DATE '2025-07-16', TO_DATE('2025-07-16 17:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 18:43', 'YYYY-MM-DD HH24:MI'), 160, 13000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (8, 4, DATE '2025-07-16', TO_DATE('2025-07-16 13:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 15:03', 'YYYY-MM-DD HH24:MI'), 200, 18000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (8, 2, DATE '2025-07-16', TO_DATE('2025-07-16 17:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 19:33', 'YYYY-MM-DD HH24:MI'), 150, 12000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (9, 3, DATE '2025-07-16', TO_DATE('2025-07-16 14:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 15:59', 'YYYY-MM-DD HH24:MI'), 120, 15000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (9, 1, DATE '2025-07-16', TO_DATE('2025-07-16 19:00', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 20:59', 'YYYY-MM-DD HH24:MI'), 180, 12000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (10, 6, DATE '2025-07-16', TO_DATE('2025-07-16 15:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 17:43', 'YYYY-MM-DD HH24:MI'), 160, 13000, 'AVAILABLE');
-INSERT INTO MOVIE_SHOWTIMES (movie_id, cinema_id, show_date, start_time, end_time, available_seats, price, status) VALUES (10, 4, DATE '2025-07-16', TO_DATE('2025-07-16 20:30', 'YYYY-MM-DD HH24:MI'), TO_DATE('2025-07-16 22:43', 'YYYY-MM-DD HH24:MI'), 200, 18000, 'AVAILABLE');
-
--- 조회용 SELECT 문들
 SELECT * FROM MOVIE_USERS;
 SELECT * FROM MOVIE_MOVIES;
 SELECT * FROM MOVIE_CINEMAS;
 SELECT * FROM MOVIE_SHOWTIMES;
-SELECT * FROM MOVIE_RESERVATIONS;
+SELECT * FROM MOVIE_RESERVATIONS order by reservation_id;
 
-=======
->>>>>>> ecc10f5bb117c90c7f28ae08c42d94fc5d9c738c
 --DROP TABLE MOVIE_USERS CASCADE CONSTRAINT;
 --DROP TABLE MOVIE_MOVIES CASCADE CONSTRAINT;
 --DROP TABLE MOVIE_CINEMAS CASCADE CONSTRAINT;
@@ -297,53 +236,6 @@ WHERE s.available_seats > 0
   AND s.show_date = DATE '2025-07-16'
 ORDER BY m.title, s.start_time;
 
--- 7. 특정 사용자의 예매 내역 조회
-SELECT 
-    r.reservation_id,
-    r.reservation_code,
-    m.title AS movie_title,
-    c.cinema_name,
-    TO_CHAR(s.start_time, 'YYYY-MM-DD HH24:MI') AS showtime,
-    r.reserved_seats,
-    r.total_amount,
-    r.reservation_status,
-    TO_CHAR(r.reservation_date, 'YYYY-MM-DD HH24:MI:SS') AS reservation_datetime
-FROM MOVIE_RESERVATIONS r
-JOIN MOVIE_SHOWTIMES s ON r.showtime_id = s.showtime_id
-JOIN MOVIE_MOVIES m ON s.movie_id = m.movie_id
-JOIN MOVIE_CINEMAS c ON s.cinema_id = c.cinema_id
-WHERE r.user_id = 1  -- 특정 사용자 ID
-ORDER BY r.reservation_date DESC;
-
--- 8. 인기 영화 순위 (예매 건수 기준) 
--- 주의: 현재 예매 데이터가 없으므로 실제 데이터 입력 후 사용
-SELECT 
-    m.title,
-    COUNT(r.reservation_id) AS reservation_count,
-    SUM(r.total_amount) AS total_revenue
-FROM MOVIE_MOVIES m
-LEFT JOIN MOVIE_SHOWTIMES s ON m.movie_id = s.movie_id
-LEFT JOIN MOVIE_RESERVATIONS r ON s.showtime_id = r.showtime_id
-WHERE r.reservation_status = 'CONFIRMED'
-GROUP BY m.movie_id, m.title
-ORDER BY reservation_count DESC;
-
--- 9. 상영관별 매출 현황
--- 주의: 현재 예매 데이터가 없으므로 실제 데이터 입력 후 사용
-SELECT 
-    c.cinema_name,
-    c.cinema_type,
-    COUNT(r.reservation_id) AS total_reservations,
-    SUM(r.total_amount) AS total_revenue,
-    AVG(r.total_amount) AS avg_ticket_price
-FROM MOVIE_CINEMAS c
-LEFT JOIN MOVIE_SHOWTIMES s ON c.cinema_id = s.cinema_id
-LEFT JOIN MOVIE_RESERVATIONS r ON s.showtime_id = r.showtime_id
-WHERE r.reservation_status = 'CONFIRMED'
-GROUP BY c.cinema_id, c.cinema_name, c.cinema_type
-ORDER BY total_revenue DESC;
-
->>>>>>> ecc10f5bb117c90c7f28ae08c42d94fc5d9c738c
 -- 10. 특정 시간대별 상영 현황 (오전/오후/저녁)
 SELECT 
     CASE 
@@ -376,12 +268,6 @@ ORDER BY
         WHEN '저녁' THEN 3
         ELSE 4
     END;
-
--- 11. 사용자 로그인용 쿼리
-SELECT user_id, name, email, phone
-FROM MOVIE_USERS
-WHERE phone = '010-1234-5678'  -- 입력받은 휴대폰 번호
-  AND password = 'hashed_password';  -- 암호화된 비밀번호와 비교
 
 -- 12. 예매 시 좌석 수 업데이트 (트랜잭션 처리 필요)
 UPDATE MOVIE_SHOWTIMES 
@@ -470,47 +356,3 @@ SELECT c.cinema_name,
 FROM MOVIE_CINEMAS c
 JOIN MOVIE_SHOWTIMES s ON c.cinema_id = s.cinema_id
 GROUP BY c.cinema_id, c.cinema_name, c.total_seats;
-=======
-WHERE r.reservation_code = 'RES001';  -- 예매 코드
-
--- 16. 일별 매출 통계 (현재 예매 데이터가 없으므로 실제 데이터 입력 후 사용)
-SELECT 
-    TO_CHAR(r.payment_date, 'YYYY-MM-DD') AS payment_date,
-    COUNT(r.reservation_id) AS daily_reservations,
-    SUM(r.total_amount) AS daily_revenue
-FROM MOVIE_RESERVATIONS r
-WHERE r.reservation_status = 'CONFIRMED'
-  AND r.payment_date >= DATE '2025-07-01'
-  AND r.payment_date < DATE '2025-08-01'
-GROUP BY TO_CHAR(r.payment_date, 'YYYY-MM-DD')
-ORDER BY payment_date;
-
--- 17. VIP/특별관 상영 시간표 조회
-SELECT 
-    s.showtime_id,
-    m.title,
-    c.cinema_name,
-    c.cinema_type,
-    TO_CHAR(s.start_time, 'HH24:MI') AS start_time,
-    s.available_seats,
-    s.price
-FROM MOVIE_SHOWTIMES s
-JOIN MOVIE_MOVIES m ON s.movie_id = m.movie_id
-JOIN MOVIE_CINEMAS c ON s.cinema_id = c.cinema_id
-WHERE c.cinema_type IN ('VIP', 'IMAX', '4DX')
-  AND s.show_date = DATE '2025-07-16'
-ORDER BY c.cinema_type, s.start_time;
-
--- 18. 특정 가격대 상영 시간표 조회
-SELECT 
-    m.title,
-    c.cinema_name,
-    TO_CHAR(s.start_time, 'HH24:MI') AS start_time,
-    s.price
-FROM MOVIE_SHOWTIMES s
-JOIN MOVIE_MOVIES m ON s.movie_id = m.movie_id
-JOIN MOVIE_CINEMAS c ON s.cinema_id = c.cinema_id
-WHERE s.price BETWEEN 10000 AND 15000  -- 1만원~1만5천원
-  AND s.show_date = DATE '2025-07-16'
-ORDER BY s.price, s.start_time;
->>>>>>> ecc10f5bb117c90c7f28ae08c42d94fc5d9c738c
