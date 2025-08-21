@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub 유저 검색</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <style>
+        .github-card {
+            background: #fafbfc;
+            border: 1px solid #d1d9e0;
+        }
+        .dark .github-card {
+            background: #0d1117;
+            border: 1px solid #30363d;
+        }
+        .github-input {
+            border: 1px solid #d1d9e0;
+        }
+        .github-input:focus {
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+        }
+        .github-btn {
+            background: #1f883d;
+            border: 1px solid rgba(31, 136, 61, 0.4);
+        }
+        .github-btn:hover {
+            background: #1a7f37;
+        }
+        .notice {
+            position: absolute;
+            top: 200px;
+            left: 50%;
+            transform: translate(-50%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6 text-center">GitHub 유저 검색</h1>
+            <div class="flex gap-3 max-w-md mx-auto">
+                <input id="githubUser" placeholder="GitHub 사용자명 입력" 
+                    class="github-input flex-1 px-3 py-2 rounded-md outline-none transition-all"
+                />
+                <button onclick="getGitHubInfo()" 
+                    class="github-btn text-white px-4 py-2 rounded-md font-medium transition-colors"
+                >
+                    검색
+                </button>
+            </div>
+        </div>
+
+        <div id="result" class="hidden">
+            <div class="github-card rounded-lg p-6 mb-6">
+                <div class="flex items-start gap-6">
+                    <img id="avatar" alt="..." class="w-20 h-20 rounded-full border-2 border-gray-200" />
+                    <div id="text-content" class="flex-1"></div>
+                </div>
+            </div>
+
+            <div id="stats" class="grid md:grid-cols-2 gap-6">
+                <div class="github-card rounded-lg p-4">
+                    <img id="userStats" class="stats-img w-full" alt="GitHub Stats" />
+                </div>
+                <div class="github-card rounded-lg p-4">
+                    <img id="topLangs" class="stats-img w-full" alt="Top Languages" />
+                </div>
+            </div>
+        </div>
+
+        <div id="loading" class="hidden text-center py-8">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+            <p class="mt-2 text-gray-600">사용자 정보를 불러오는 중...</p>
+        </div>
+
+        <div id="error" class="hidden github-card rounded-lg p-6 text-center">
+            <div class="text-red-500 text-lg mb-2">⚠️</div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">사용자를 찾을 수 없습니다</h3>
+            <p class="text-gray-600">입력한 사용자명을 확인해주세요.</p>
+        </div>
+    </div>
+
+    <script>
+        async function getGitHubInfo() {
+            try {
+                const username = document.getElementById('githubUser').value.trim();
+                
+                if (!username) {
+                    notice();
+                    return;
+                }
+
+                document.getElementById('result').classList.add('hidden');
+                document.getElementById('error').classList.add('hidden');
+                document.getElementById('loading').classList.remove('hidden');
+
+                const statsUrl = `https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=default&hide_border=true`;
+                const langsUrl = `https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&theme=default&layout=compact&hide_border=true`;
+
+                document.getElementById('userStats').src = statsUrl;
+                document.getElementById('topLangs').src = langsUrl;
+
+                const res = await fetch(`https://api.github.com/users/${username}`);
+
+                if (res.ok) {
+                    const data = await res.json();
+                    console.log(data);
+
+                    document.getElementById("avatar").src = data.avatar_url;
+
+                    const textContent = document.getElementById("text-content");
+                    textContent.innerHTML = generateUserInfo(data);
+
+                    document.getElementById('loading').classList.add('hidden');
+                    document.getElementById('result').classList.remove('hidden');
+                } else {
+                    document.getElementById('loading').classList.add('hidden');
+                    document.getElementById('error').classList.remove('hidden');
+                }
+
+            } catch (error) {
+                console.log(error);
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('error').classList.remove('hidden');
+            }
+        }
+
+        function generateUserInfo(data) {
+            let html = '';
+
+            html += `<div class="mb-4">`;
+            if (data.name) {
+                html += `<h2 class="text-2xl font-bold text-gray-900">${data.name}</h2>`;
+            }
+            html += `<p class="text-lg text-gray-600">@${data.login}</p>`;
+            html += `</div>`;
+
+            if (data.bio) {
+                html += `<p class="text-gray-700 mb-4">${data.bio}</p>`;
+            }
+
+            html += `<div class="flex flex-wrap gap-4 mb-4 text-sm">`;
+            html += `<span class="flex items-center gap-1">
+                        <strong>${data.public_repos}</strong> repositories
+                     </span>`;
+            html += `<span class="flex items-center gap-1">
+                        <strong>${data.followers}</strong> followers
+                     </span>`;
+            html += `<span class="flex items-center gap-1">
+                        <strong>${data.following}</strong> following
+                     </span>`;
+            html += `</div>`;
+
+            html += `<div class="space-y-2 text-sm text-gray-600">`;
+            
+            if (data.company) {
+                html += `<div class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4z"></path>
+                            </svg>
+                            ${data.company}
+                         </div>`;
+            }
+
+            if (data.location) {
+                html += `<div class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9z M10 11a2 2 0 100-4 2 2 0 000 4z"></path>
+                            </svg>
+                            ${data.location}
+                         </div>`;
+            }
+
+            if (data.blog) {
+                html += `<div class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5z"></path>
+                            </svg>
+                            <a href="${data.blog}" target="_blank" class="text-blue-600 hover:underline">${data.blog}</a>
+                         </div>`;
+            }
+
+            if (data.email) {
+                html += `<div class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                            </svg>
+                            ${data.email}
+                         </div>`;
+            }
+
+            if (data.twitter_username) {
+                html += `<div class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84"></path>
+                            </svg>
+                            @${data.twitter_username}
+                         </div>`;
+            }
+
+            html += `</div>`;
+
+            const joinDate = new Date(data.created_at).toLocaleDateString('ko-KR');
+            html += `<div class="mt-4 pt-4 border-t border-gray-200">
+                        <p class="text-sm text-gray-500">가입일: ${joinDate}</p>
+                     </div>`;
+
+            return html;
+        }
+
+        function notice() {
+            const $div = document.createElement("div");
+            $div.innerHTML = `<h1 class='text-2xl'>사용자명을 입력해주세요</h1>`;
+            $div.className = "notice";
+            document.querySelector("body").append($div);
+
+            setTimeout(() => {
+                document.querySelector(".notice").remove();
+            }, 1000);
+        }
+
+        document.getElementById('githubUser').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                getGitHubInfo();
+            }
+        });
+    </script>
+</body>
+</html>
