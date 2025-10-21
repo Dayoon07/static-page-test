@@ -1,0 +1,299 @@
+-- Master
+SELECT * FROM KIOSKDB_SUBWAY.dbo.COMP_M;				-- 회사마스터
+SELECT * FROM KIOSKDB_SUBWAY.dbo.ORIGIN_CAT_M;			-- 원산지 마스터
+SELECT * FROM KIOSKDB_SUBWAY.dbo.ORIGIN_M;				-- 원산지 마스터
+SELECT * FROM KIOSKDB_SUBWAY.dbo.ALLERGY_CAT_M;			-- 알레르기 분류 마스터
+SELECT * FROM KIOSKDB_SUBWAY.dbo.ALLERGY_M;				-- 알레르기 마스터
+SELECT * FROM KIOSKDB_SUBWAY.dbo.STOR_M;				-- 매장마스터
+SELECT * FROM KIOSKDB_SUBWAY.dbo.BANNER_M;				-- 배너정보
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.STOR_MANAGER_M;		-- 매장담당자정보
+SELECT * FROM KIOSKDB_SUBWAY.dbo.STOR_POS_M;			-- 매장포스
+SELECT * FROM KIOSKDB_SUBWAY.dbo.STOR_FUN_SET_M;		-- 매장판매설정
+SELECT * FROM KIOSKDB_SUBWAY.dbo.CUST_M;				-- 거래처정보
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.CUST_CAT1_M;		-- 거래처 (대)분류
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.CUST_CAT2_M;		-- 거래처 (중)분류
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.CUST_CAT3_M;		-- 거래처 (소)분류
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.ITEM_CAT1_M;		-- 품목분류1
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.ITEM_CAT2_M;		-- 품목분류2
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.ITEM_CAT3_M;		-- 품목분류3
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.ITEM_CLS1_M;		-- 품목부분1
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.ITEM_CLS2_M;		-- 품목부분2
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.ITEM_CLS3_M;		-- 품목부분3
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.ITEM_M;				-- 통합품목
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.ITEM_STOR_CONF_M;	-- 매장별 품목 단가 변경 신청
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.ITEM_STOR_M;		-- 매장별 품목 단가
+SELECT * FROM KIOSKDB_SUBWAY.dbo.ITEM_SET_M;			-- 세트 품목
+SELECT * FROM KIOSKDB_SUBWAY.dbo.SET_OPT_M				-- 세트옵션
+SELECT * FROM KIOSKDB_SUBWAY.dbo.RECP_M;				-- 레시피
+SELECT * FROM KIOSKDB_SUBWAY.dbo.ITEM_ADD_M;			-- 품목별 추가 품목
+SELECT * FROM KIOSKDB_SUBWAY.dbo.ADD_CAT_M;				-- 재료 추가 분류
+SELECT * FROM KIOSKDB_SUBWAY.dbo.ADD_M;					-- 재료 추가
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.CDMT_CAT1_M;		-- 식자재 분류1
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.CDMT_CAT2_M;		-- 식자재 분류2
+SELECT * FROM KIOSKDB_SUBWAY.dbo.CDMT_M;				-- 식자재
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.EMP_M;				-- 사원
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.KEYMAP_PRSET_M;		-- 키맵 프리셋
+SELECT * FROM KIOSKDB_SUBWAY.dbo.TGRP_M;				-- 터치그룹
+SELECT * FROM KIOSKDB_SUBWAY.dbo.TGRP_KIOSK_M;			-- 키오스크 터치그룹
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.KEYMAP_M;			-- 키맵
+SELECT * FROM KIOSKDB_SUBWAY.dbo.KEYMAP_KIOSK_M;		-- 키오스크 키맵
+SELECT * FROM KIOSKDB_SUBWAY.dbo.PROM_M;				-- 프로모션
+SELECT * FROM KIOSKDB_SUBWAY.dbo.PROM_APPR_M;			-- 프로모션 적용 대상
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.PROM_STOR_M;		-- 프로모션 적용 매장
+SELECT * FROM KIOSKDB_SUBWAY.dbo.GIFT_APPR_M;			-- 상품권 인증 정보
+SELECT * FROM KIOSKDB_SUBWAY.dbo.GIFT_CAT_M;			-- 상품권 분류
+SELECT * FROM KIOSKDB_SUBWAY.dbo.GIFT_M;				-- 상품권
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.GIFT_STOR_M;		-- 상품권 적용 매장
+SELECT * FROM KIOSKDB_SUBWAY.dbo.CPN_M;					-- 교환권
+SELECT * FROM KIOSKDB_SUBWAY.dbo.CPN_APPR_M;			-- 교환권 적용 대상
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.CPN_NO_M;			-- 교환권 일련 번호
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.CPN_STOR_M;			-- 교환권 적용 매장
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.ETC_PAY_CAT_M;		-- 기타 결제 분류
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.ETC_PAY_M;			-- 기타 결제
+SELECT * FROM KIOSKDB_SUBWAY.dbo.EVNT_M;				-- 이벤트
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.EVNT_STOR_M;		-- 이벤트 적용 매장
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.BRNC_M;				-- 지사
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.RGN1_M;				-- 지역1
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.RGN2_M;				-- 지역2
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.STOR_OPEN_M;		-- 매장 오픈 정보
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.OPEN_TAGT_M;		-- 오픈 매장 목표
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.SALE_TAGT_M;		-- 매출 목표
+SELECT * FROM KIOSKDB_SUBWAY.dbo.VAN_M;					-- 밴 정보
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.MAC_ADDR_M;			-- MAC 주소 관리
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.NOTICE_M;			-- 공지사항
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.FILE_L;				-- 첨부파일
+SELECT * FROM KIOSKDB_SUBWAY.dbo.FREEGIFT_M;			-- 사은 행사
+SELECT * FROM KIOSKDB_SUBWAY.dbo.FREEGIFT_ITEM_M;		-- 사은 행상 품목 정보
+SELECT * FROM KIOSKDB_SUBWAY.dbo.CARD_M;				-- 카드사 정보
+SELECT * FROM KIOSKDB_SUBWAY.dbo.BASIC_M;				-- 기초코드
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.EVNT_ITEM_M;		-- 행사 세트 품목 요청
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.EVNT_SET_ITEM_M		-- 행사 세트 품목 구성품
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.EVNT_ITEM_STOR_M;	-- 행사 세트 품목 적용 매장
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.LOGIN_M;			-- 로그인 정보
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.CARD_TERMINAL_M;	-- 유무선 단말기 정보
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.HR_BASE_INFO		-- HR 기준 관리
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.HR_WORK				-- 근태 수정 정보 관리
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.HR_BASE_WAGE		-- 근태 시급 정보 관리
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.HR_MONTH_CLOSE		-- 근태 월마감 관리
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.HR_ANNU				-- 연차 관리
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.HR_TIME_WAGE		-- 시간대별 시급 관리
+SELECT * FROM KIOSKDB_SUBWAY.dbo.ITEM_SO_M;				-- 매장별 품절 테이블
+SELECT * FROM KIOSKDB_SUBWAY.dbo.STEP_M;				-- 스텝 마스터
+SELECT * FROM KIOSKDB_SUBWAY.dbo.STEP_INFO_M;			-- 스텝 재료 마스터
+SELECT * FROM KIOSKDB_SUBWAY.dbo.STEP_SET_M;			-- 스텝 프리셋 마스터
+SELECT * FROM KIOSKDB_SUBWAY.dbo.RECOMMEND_M;			-- 추천 메뉴 마스터
+SELECT * FROM KIOSKDB_SUBWAY.dbo.HONEY_M;				-- 꿀조합 마스터
+SELECT * FROM KIOSKDB_SUBWAY.dbo.RPRT_M;				-- 주방 출력 마스터
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.SYS_DN_L;			-- 기기업데이트
+
+
+-- TR (Table Order)
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_SALE_H;				-- Header
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_SALE_D;				-- Detail
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_CASH_L;			-- 현금결제
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_CASH_RECT_L;			-- 현금영수증
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_CARD_L;				-- 신용카드 결제
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_CARD_TERMINAL_L;		-- 유무선 단말기 결제
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_GIFT_L;				-- 상품권 결제
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_PCARD_CHR_L;			-- 서브 카드 충전
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_PCARD_L;				-- 서브 카드 결제
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_PNT_L;				-- 포인트 결제
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_PNT_ACC_L;			-- 포인트 적립
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_ETC_L;				-- 기타결제
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_PROM_L;				-- 프로모션 이력
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_CPN_L;				-- 교환권
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_CPN_DIFF_L;		-- 교환권
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_CLOSE;				-- 마감 정산
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_DSCRD;			-- 폐기 등록
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_DSCRD_PICT;		-- 폐기 사진
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_MOVE;				-- 이동 등록
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_RMN;				-- 실사 등록
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_INOUT;			-- 입출금
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_EXPENSE;			-- 손익 비용
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_WISR;				-- 와이저 전송 로그
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_RESV_H;			-- 예약 H
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_RESV_D;			-- 예약 D
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_RESV_REQ;			-- 예약 D
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_CREDIT_L;			-- 외상 매출
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_FREEGIFT_L;			-- 사은 행사 이력
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_STND_L;				-- 표준 사용량
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_PURC_L;			-- 입고
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.S_SALE_H_D;			-- 금액 집계(일)
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.S_SALE_H_M;			-- 금액 집계(월)
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.S_SALE_H_Y;			-- 금액 집계(년)
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.S_SALE_D_A;			-- 품목 집계A
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.S_SALE_D_B;			-- 품목 집계B
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.S_TIME;				-- 시간대 집계
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.HR_WORK;			-- 스케줄 등록
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_DV_L;				-- 배달 주문 로그
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_DB_ORD_H;			-- 배달H (POS용)
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_DB_ORD_D;			-- 배달D (POS용)
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_KKP_L;				-- 카카오 페이 결제
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_PRE_ORD_L;		-- 선 주문 내역
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_PRE_ORD_H;		-- 선 주문 H (POS용)
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_PRE_ORD_D;		-- 선 주문 D (POS용)
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_ORD_PAY;			-- 주문 결제 D (POS용)
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_ORD_MEMBER;		-- 앱 주문 적립 내역 (POS용)
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_VOUCHER_L;			-- Simplicity 쿠폰 이력
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_PAYCO_L;				-- Payco 결제
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_ORD_VOC;			-- 앱 주문 바우처 내역 (POS용)
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_IPCA_DATA1;		-- IPCA DATA 1 테이블
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_IPCA_DATA2;		-- IPCA DATA 2 테이블
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_NOT_SEND_L;		-- 매출 미전송 테이블
+-- SELECT * FROM KIOSKDB_SUBWAY.dbo.T_SALE_H_SUM;		-- 매출 헤더 합
+SELECT * FROM KIOSKDB_SUBWAY.dbo.T_NAVER_L;				-- 네이버 페이
+
+
+
+/*----------------------------------------------------------------------------------*/
+
+
+
+-- Master
+SP_HELP 'KIOSKDB_SUBWAY.dbo.COMP_M';				-- 회사마스터
+SP_HELP 'KIOSKDB_SUBWAY.dbo.ORIGIN_CAT_M';			-- 원산지 마스터
+SP_HELP 'KIOSKDB_SUBWAY.dbo.ORIGIN_M';				-- 원산지 마스터
+SP_HELP 'KIOSKDB_SUBWAY.dbo.ALLERGY_CAT_M';			-- 알레르기 분류 마스터
+SP_HELP 'KIOSKDB_SUBWAY.dbo.ALLERGY_M';				-- 알레르기 마스터
+SP_HELP 'KIOSKDB_SUBWAY.dbo.STOR_M';				-- 매장마스터
+SP_HELP 'KIOSKDB_SUBWAY.dbo.BANNER_M';				-- 배너정보
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.STOR_MANAGER_M';		-- 매장담당자정보
+SP_HELP 'KIOSKDB_SUBWAY.dbo.STOR_POS_M';			-- 매장포스
+SP_HELP 'KIOSKDB_SUBWAY.dbo.STOR_FUN_SET_M';		-- 매장판매설정
+SP_HELP 'KIOSKDB_SUBWAY.dbo.CUST_M';				-- 거래처정보
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.CUST_CAT1_M';		-- 거래처 (대)분류
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.CUST_CAT2_M';		-- 거래처 (중)분류
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.CUST_CAT3_M';		-- 거래처 (소)분류
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.ITEM_CAT1_M';		-- 품목분류1
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.ITEM_CAT2_M';		-- 품목분류2
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.ITEM_CAT3_M';		-- 품목분류3
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.ITEM_CLS1_M';		-- 품목부분1
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.ITEM_CLS2_M';		-- 품목부분2
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.ITEM_CLS3_M';		-- 품목부분3
+SP_HELP 'KIOSKDB_SUBWAY.dbo.ITEM_M';				-- 통합품목
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.ITEM_STOR_CONF_M';	-- 매장별 품목 단가 변경 신청
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.ITEM_STOR_M';		-- 매장별 품목 단가
+SP_HELP 'KIOSKDB_SUBWAY.dbo.ITEM_SET_M';			-- 세트 품목
+SP_HELP 'KIOSKDB_SUBWAY.dbo.SET_OPT_M'				-- 세트옵션
+SP_HELP 'KIOSKDB_SUBWAY.dbo.RECP_M';				-- 레시피
+SP_HELP 'KIOSKDB_SUBWAY.dbo.ITEM_ADD_M';			-- 품목별 추가 품목
+SP_HELP 'KIOSKDB_SUBWAY.dbo.ADD_CAT_M';				-- 재료 추가 분류
+SP_HELP 'KIOSKDB_SUBWAY.dbo.ADD_M';					-- 재료 추가
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.CDMT_CAT1_M';		-- 식자재 분류1
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.CDMT_CAT2_M';		-- 식자재 분류2
+SP_HELP 'KIOSKDB_SUBWAY.dbo.CDMT_M';				-- 식자재
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.EMP_M';				-- 사원
+SP_HELP 'KIOSKDB_SUBWAY.dbo.KEYMAP_PRSET_M';		-- 키맵 프리셋
+SP_HELP 'KIOSKDB_SUBWAY.dbo.TGRP_M';				-- 터치그룹
+SP_HELP 'KIOSKDB_SUBWAY.dbo.TGRP_KIOSK_M';			-- 키오스크 터치그룹
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.KEYMAP_M';			-- 키맵
+SP_HELP 'KIOSKDB_SUBWAY.dbo.KEYMAP_KIOSK_M';		-- 키오스크 키맵
+SP_HELP 'KIOSKDB_SUBWAY.dbo.PROM_M';				-- 프로모션
+SP_HELP 'KIOSKDB_SUBWAY.dbo.PROM_APPR_M';			-- 프로모션 적용 대상
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.PROM_STOR_M';		-- 프로모션 적용 매장
+SP_HELP 'KIOSKDB_SUBWAY.dbo.GIFT_APPR_M';			-- 상품권 인증 정보
+SP_HELP 'KIOSKDB_SUBWAY.dbo.GIFT_CAT_M';			-- 상품권 분류
+SP_HELP 'KIOSKDB_SUBWAY.dbo.GIFT_M';				-- 상품권
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.GIFT_STOR_M';		-- 상품권 적용 매장
+SP_HELP 'KIOSKDB_SUBWAY.dbo.CPN_M';					-- 교환권
+SP_HELP 'KIOSKDB_SUBWAY.dbo.CPN_APPR_M';			-- 교환권 적용 대상
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.CPN_NO_M';			-- 교환권 일련 번호
+SP_HELP 'KIOSKDB_SUBWAY.dbo.CPN_STOR_M';			-- 교환권 적용 매장
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.ETC_PAY_CAT_M';		-- 기타 결제 분류
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.ETC_PAY_M';			-- 기타 결제
+SP_HELP 'KIOSKDB_SUBWAY.dbo.EVNT_M';				-- 이벤트
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.EVNT_STOR_M';		-- 이벤트 적용 매장
+SP_HELP 'KIOSKDB_SUBWAY.dbo.BRNC_M';				-- 지사
+SP_HELP 'KIOSKDB_SUBWAY.dbo.RGN1_M';				-- 지역1
+SP_HELP 'KIOSKDB_SUBWAY.dbo.RGN2_M';				-- 지역2
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.STOR_OPEN_M';		-- 매장 오픈 정보
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.OPEN_TAGT_M';		-- 오픈 매장 목표
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.SALE_TAGT_M';		-- 매출 목표
+SP_HELP 'KIOSKDB_SUBWAY.dbo.VAN_M';					-- 밴 정보
+SP_HELP 'KIOSKDB_SUBWAY.dbo.MAC_ADDR_M';			-- MAC 주소 관리
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.NOTICE_M';			-- 공지사항
+SP_HELP 'KIOSKDB_SUBWAY.dbo.FILE_L';				-- 첨부파일
+SP_HELP 'KIOSKDB_SUBWAY.dbo.FREEGIFT_M';			-- 사은 행사
+SP_HELP 'KIOSKDB_SUBWAY.dbo.FREEGIFT_ITEM_M';		-- 사은 행상 품목 정보
+SP_HELP 'KIOSKDB_SUBWAY.dbo.CARD_M';				-- 카드사 정보
+SP_HELP 'KIOSKDB_SUBWAY.dbo.BASIC_M';				-- 기초코드
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.EVNT_ITEM_M';		-- 행사 세트 품목 요청
+SP_HELP 'KIOSKDB_SUBWAY.dbo.EVNT_SET_ITEM_M'		-- 행사 세트 품목 구성품
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.EVNT_ITEM_STOR_M';	-- 행사 세트 품목 적용 매장
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.LOGIN_M';			-- 로그인 정보
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.CARD_TERMINAL_M';	-- 유무선 단말기 정보
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.HR_BASE_INFO'		-- HR 기준 관리
+SP_HELP 'KIOSKDB_SUBWAY.dbo.HR_WORK'				-- 근태 수정 정보 관리
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.HR_BASE_WAGE'		-- 근태 시급 정보 관리
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.HR_MONTH_CLOSE'		-- 근태 월마감 관리
+SP_HELP 'KIOSKDB_SUBWAY.dbo.HR_ANNU'				-- 연차 관리
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.HR_TIME_WAGE'		-- 시간대별 시급 관리
+SP_HELP 'KIOSKDB_SUBWAY.dbo.ITEM_SO_M';				-- 매장별 품절 테이블
+SP_HELP 'KIOSKDB_SUBWAY.dbo.STEP_M';				-- 스텝 마스터
+SP_HELP 'KIOSKDB_SUBWAY.dbo.STEP_INFO_M';			-- 스텝 재료 마스터
+SP_HELP 'KIOSKDB_SUBWAY.dbo.STEP_SET_M';			-- 스텝 프리셋 마스터
+SP_HELP 'KIOSKDB_SUBWAY.dbo.RECOMMEND_M';			-- 추천 메뉴 마스터
+SP_HELP 'KIOSKDB_SUBWAY.dbo.HONEY_M';				-- 꿀조합 마스터
+SP_HELP 'KIOSKDB_SUBWAY.dbo.RPRT_M';				-- 주방 출력 마스터
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.SYS_DN_L';			-- 기기업데이트
+
+
+-- TR (Table Order)
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_SALE_H';				-- Header
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_SALE_D';				-- Detail
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_CASH_L';			-- 현금결제
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_CASH_RECT_L';			-- 현금영수증
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_CARD_L';				-- 신용카드 결제
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_CARD_TERMINAL_L';		-- 유무선 단말기 결제
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_GIFT_L';				-- 상품권 결제
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_PCARD_CHR_L';			-- 서브 카드 충전
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_PCARD_L';				-- 서브 카드 결제
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_PNT_L';				-- 포인트 결제
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_PNT_ACC_L';			-- 포인트 적립
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_ETC_L';				-- 기타결제
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_PROM_L';				-- 프로모션 이력
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_CPN_L';				-- 교환권
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_CPN_DIFF_L';		-- 교환권
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_CLOSE';				-- 마감 정산
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_DSCRD';			-- 폐기 등록
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_DSCRD_PICT';		-- 폐기 사진
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_MOVE';				-- 이동 등록
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_RMN';				-- 실사 등록
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_INOUT';			-- 입출금
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_EXPENSE';			-- 손익 비용
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_WISR';				-- 와이저 전송 로그
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_RESV_H';			-- 예약 H
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_RESV_D';			-- 예약 D
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_RESV_REQ';			-- 예약 D
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_CREDIT_L';			-- 외상 매출
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_FREEGIFT_L';			-- 사은 행사 이력
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_STND_L';				-- 표준 사용량
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_PURC_L';			-- 입고
+SP_HELP 'KIOSKDB_SUBWAY.dbo.S_SALE_H_D';			-- 금액 집계(일)
+SP_HELP 'KIOSKDB_SUBWAY.dbo.S_SALE_H_M';			-- 금액 집계(월)
+SP_HELP 'KIOSKDB_SUBWAY.dbo.S_SALE_H_Y';			-- 금액 집계(년)
+SP_HELP 'KIOSKDB_SUBWAY.dbo.S_SALE_D_A';			-- 품목 집계A
+SP_HELP 'KIOSKDB_SUBWAY.dbo.S_SALE_D_B';			-- 품목 집계B
+SP_HELP 'KIOSKDB_SUBWAY.dbo.S_TIME';				-- 시간대 집계
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.HR_WORK';			-- 스케줄 등록
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_DV_L';				-- 배달 주문 로그
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_DB_ORD_H';			-- 배달H (POS용)
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_DB_ORD_D';			-- 배달D (POS용)
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_KKP_L';				-- 카카오 페이 결제
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_PRE_ORD_L';		-- 선 주문 내역
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_PRE_ORD_H';		-- 선 주문 H (POS용)
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_PRE_ORD_D';		-- 선 주문 D (POS용)
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_ORD_PAY';			-- 주문 결제 D (POS용)
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_ORD_MEMBER';		-- 앱 주문 적립 내역 (POS용)
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_VOUCHER_L';			-- Simplicity 쿠폰 이력
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_PAYCO_L';				-- Payco 결제
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_ORD_VOC';			-- 앱 주문 바우처 내역 (POS용)
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_IPCA_DATA1';		-- IPCA DATA 1 테이블
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_IPCA_DATA2';		-- IPCA DATA 2 테이블
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_NOT_SEND_L';		-- 매출 미전송 테이블
+-- SP_HELP 'KIOSKDB_SUBWAY.dbo.T_SALE_H_SUM';		-- 매출 헤더 합
+SP_HELP 'KIOSKDB_SUBWAY.dbo.T_NAVER_L';				-- 네이버 페이
+
+
+
+
